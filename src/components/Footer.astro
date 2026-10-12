@@ -1,0 +1,142 @@
+---
+import Logo from "./Logo.astro";
+import Icon from "./Icon.astro";
+import SongLine from "./SongLine.astro";
+
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="news">
+      <div class="stack">
+        <p class="eyebrow">Newsletter</p>
+        <h2>News from the bush, once a month.</h2>
+        <p class="lead">Trap.NZ results, upcoming events, volunteer stories and ways to help.</p>
+      </div>
+      <a class="btn sun" href="https://preview.mailerlite.io/forms/2346067/193744657051551642/share" rel="noopener">
+        Subscribe <Icon name="arrow" />
+      </a>
+    </div>
+
+    <SongLine seed={21} height={90} class="footer-song" />
+
+    <div class="cols">
+      <div class="brandcol">
+        <a href="/" class="brand" aria-label="Mahurangi Bird Song, home"><Logo size={64} /></a>
+        <p>A community of volunteers restoring native wildlife across 3,500 hectares of the Mahurangi West peninsula.</p>
+      </div>
+      <nav aria-label="Footer">
+        <h3>Explore</h3>
+        <ul>
+          <li><a href="/our-work">Our work</a></li>
+          <li><a href="/stories">Stories</a></li>
+          <li><a href="/pest-plants">Pest plants</a></li>
+          <li><a href="/resources">Resources</a></li>
+          <li><a href="/about">About us</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h3>Help out</h3>
+        <ul>
+          <li><a href="/get-involved">Volunteer</a></li>
+          <li><a href="/donate">Donate</a></li>
+          <li><a href="/our-work#hubs">Find your hub</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Say kia ora</h3>
+        <ul>
+          <li><a href="mailto:mahurangiwestpest@gmail.com">mahurangiwestpest@gmail.com</a></li>
+          <li><a href="https://www.facebook.com/search/top?q=mahurangi%20west%20pest" rel="noopener">Facebook</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="legal">
+      <p>We acknowledge Ngāti Maraeariki ki Mahurangi and the whānau of this whenua.</p>
+      <p>© {year} Mahurangi West Pest Inc.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--ink);
+    color: var(--paper);
+    padding-block: clamp(4rem, 9vw, 7rem) 2rem;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    --line: color-mix(in oklab, var(--paper) 16%, transparent);
+  }
+  .site-footer :global(.footer-song) {
+    --ink: var(--paper);
+    --bush: var(--fern);
+    --kotare: var(--sky);
+    margin-block: clamp(2.5rem, 6vw, 4rem);
+  }
+  .news {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: end;
+    gap: 2rem;
+  }
+  .news h2 {
+    font-size: var(--step-4);
+    max-width: 14ch;
+  }
+  .news .eyebrow {
+    color: var(--kowhai);
+  }
+  .news .lead {
+    color: color-mix(in oklab, var(--paper) 75%, transparent);
+  }
+  .cols {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1.4fr;
+    gap: 2.5rem;
+  }
+  @media (max-width: 52rem) {
+    .cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .brandcol, .cols > div:last-child { grid-column: 1 / -1; }
+  }
+  .brandcol p {
+    margin-top: 1rem;
+    max-width: 26rem;
+    color: color-mix(in oklab, var(--paper) 75%, transparent);
+  }
+  h3 {
+    font-family: var(--body);
+    font-size: var(--step--1);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--kowhai);
+    margin-bottom: 1rem;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.55rem;
+  }
+  ul a {
+    text-decoration: none;
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0% 1px no-repeat;
+    transition: background-size 0.4s var(--ease-out);
+  }
+  ul a:hover {
+    background-size: 100% 1px;
+  }
+  .legal {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: clamp(3rem, 7vw, 5rem);
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+    font-size: var(--step--1);
+    color: color-mix(in oklab, var(--paper) 65%, transparent);
+  }
+</style>

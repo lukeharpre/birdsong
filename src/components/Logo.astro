@@ -1,0 +1,15 @@
+---
+// Kōtare (sacred kingfisher) on a kōwhai sun.
+interface Props { size?: number; class?: string }
+const { size = 44, class: cls } = Astro.props;
+---
+<svg class={cls} width={size} height={size} viewBox="0 0 64 64" aria-hidden="true">
+  <circle cx="32" cy="32" r="31" fill="var(--kowhai)" />
+  <path d="M27 49 L23 60 L33 51 Z" fill="var(--kotare-deep)" />
+  <path d="M24 30c0-8 6-13 13-13 6 0 10 4 10 9 0 4-2 7-4 9l-2 9c-2 6-8 9-14 7-4-2-6-6-5-11z" fill="var(--kotare)" />
+  <path d="M28 37c2 6 7 9 13 8l-1 1c-2 5-8 8-13 6-3-2-4-5-3-9z" fill="var(--buff)" />
+  <path d="M31 26c3-2 8-2 13 0-1 3-4 4-7 4-3 0-5-1-6-4z" fill="var(--ink)" />
+  <path d="M33 27c-6-1-15 0-23 3 7 0 15 1 22 2z" fill="var(--ink)" />
+  <path d="M30 31c3 2 9 3 14 1-1 2-3 4-6 4-3 0-6-2-8-5z" fill="var(--buff)" />
+  <circle cx="39" cy="27" r="1.6" fill="#fff" />
+</svg>

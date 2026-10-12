@@ -1,0 +1,152 @@
+---
+import Base from "../../layouts/Base.astro";
+import Img from "../../components/Img.astro";
+import Icon from "../../components/Icon.astro";
+import StoryCard from "../../components/StoryCard.astro";
+import { stories, date, readingTime, renderHtml, isPoster, type Post } from "../../lib/content";
+
+export function getStaticPaths() {
+  return stories.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+}
+
+const { post } = Astro.props as { post: Post };
+const i = stories.findIndex((p) => p.slug === post.slug);
+const newer = stories[i - 1];
+const older = stories[i + 1];
+const more = stories.filter((p) => p.slug !== post.slug).slice(0, 3);
+
+// The cover leads the article, so drop its first appearance from the body.
+let body = post.html;
+if (post.cover) {
+  body = body.replace(new RegExp(`<figure>\\s*<img src="media:${post.cover.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}"[^>]*>\\s*(<figcaption>[\\s\\S]*?</figcaption>)?\\s*</figure>|<img src="media:${post.cover.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}"[^>]*>`), "");
+}
+---
+<Base title={post.title} description={post.excerpt}>
+  <div class="progress" aria-hidden="true"></div>
+  <article>
+    <header class="head">
+      <div class="narrow">
+        <a href="/stories" class="back link-arrow"><span aria-hidden="true">←</span> All stories</a>
+        <p class="meta">
+          <time datetime={post.date}>{date(post.date)}</time>
+          <span aria-hidden="true">·</span>
+          <span>{readingTime(post.html)} min read</span>
+        </p>
+        <h1>{post.title}</h1>
+      </div>
+    </header>
+
+    {post.cover && (
+      <div class:list={["cover", { poster: isPoster(post.cover) }]}>
+        <Img name={post.cover} alt="" sizes="(min-width: 70rem) 64rem, 100vw" vt={`story-${post.slug}`} eager />
+      </div>
+    )}
+
+    <div class="narrow prose body" set:html={renderHtml(body)} />
+  </article>
+
+  <nav class="narrow pager" aria-label="More stories">
+    {older ? (
+      <a href={`/stories/${older.slug}`} class="prev"><span>Older</span>{older.title}</a>
+    ) : <span />}
+    {newer && (
+      <a href={`/stories/${newer.slug}`} class="next"><span>Newer</span>{newer.title}</a>
+    )}
+  </nav>
+
+  <section class="section more">
+    <div class="wrap">
+      <div class="more-head">
+        <h2>More stories</h2>
+        <a href="/stories" class="link-arrow">All stories <Icon name="arrow" size={18} /></a>
+      </div>
+      <div class="grid">
+        {more.map((p) => <StoryCard post={p} />)}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .progress {
+    position: fixed;
+    inset: 0 0 auto;
+    height: 4px;
+    z-index: 60;
+    background: linear-gradient(90deg, var(--kotare), var(--kowhai), var(--pohutukawa));
+    transform-origin: 0 50%;
+    transform: scaleX(0);
+  }
+  @supports (animation-timeline: scroll()) {
+    .progress {
+      animation: read linear both;
+      animation-timeline: scroll(root);
+    }
+  }
+  @keyframes read { to { transform: scaleX(1); } }
+
+  .head {
+    padding-top: clamp(7.5rem, 14vw, 10rem);
+    padding-bottom: clamp(2rem, 5vw, 3rem);
+    background: radial-gradient(50rem 26rem at 90% -10%, color-mix(in oklab, var(--kowhai) 40%, transparent), transparent 70%);
+  }
+  .back { font-size: var(--step--1); color: var(--kotare-deep); }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 2rem;
+    font-weight: 600;
+    font-size: var(--step--1);
+    color: var(--bush);
+  }
+  h1 { font-size: var(--step-4); margin-top: 1rem; }
+
+  .cover {
+    width: min(100% - 2 * var(--gutter), 64rem);
+    margin: 0 auto clamp(2.5rem, 6vw, 4rem);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--sky);
+  }
+  .cover :global(img) { width: 100%; max-height: 80vh; object-fit: cover; }
+  .cover.poster { background: #fff; box-shadow: inset 0 0 0 1px var(--line); }
+  .cover.poster :global(img) { object-fit: contain; max-height: 70vh; }
+
+  .body { padding-bottom: clamp(3rem, 7vw, 5rem); }
+  .body > :global(p:first-child) {
+    font-size: var(--step-1);
+    color: var(--ink);
+    line-height: 1.55;
+  }
+
+  .pager {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--line);
+  }
+  .pager a {
+    display: grid;
+    gap: 0.3rem;
+    padding: 1.25rem;
+    border-radius: var(--radius);
+    background: var(--paper-2);
+    font-family: var(--display);
+    font-size: var(--step-0);
+    font-weight: 500;
+    line-height: 1.3;
+    text-decoration: none;
+    transition: background-color 0.25s, transform 0.4s var(--ease-spring);
+  }
+  .pager a:hover { background: var(--kowhai); transform: translateY(-3px); }
+  .pager span { font-family: var(--body); font-size: var(--step--1); font-weight: 600; color: var(--bush); }
+  .pager .next { text-align: right; }
+  @media (max-width: 36rem) { .pager { grid-template-columns: 1fr; } .pager .next { text-align: left; } }
+
+  .more-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 1rem; margin-bottom: 2rem; }
+  .more-head h2 { font-size: var(--step-3); }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+  @media (max-width: 60rem) { .grid { grid-template-columns: 1fr; } }
+</style>

@@ -1,0 +1,265 @@
+---
+import Logo from "./Logo.astro";
+import Icon from "./Icon.astro";
+
+const nav = [
+  { href: "/our-work", label: "Our work" },
+  { href: "/stories", label: "Stories" },
+  { href: "/get-involved", label: "Get involved" },
+  { href: "/about", label: "About" },
+  { href: "/resources", label: "Resources" },
+];
+const path = Astro.url.pathname;
+const current = (href: string) => path === href || path.startsWith(href + "/");
+---
+<header class="site-header">
+  <div class="bar wrap">
+    <a href="/" class="brand" aria-label="Mahurangi Bird Song, home">
+      <Logo size={46} />
+      <span class="name">Mahurangi<br /><em>Bird Song</em></span>
+    </a>
+
+    <nav aria-label="Main" class="desktop">
+      <ul>
+        {nav.map((n) => (
+          <li><a href={n.href} aria-current={current(n.href) ? "page" : undefined}>{n.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="actions">
+      <a href="/contact" class="contact" aria-current={current("/contact") ? "page" : undefined}>Contact</a>
+      <a href="/donate" class="btn sun donate">Donate</a>
+      <button class="menu-btn" popovertarget="menu" aria-label="Open menu">
+        <Icon name="menu" size={24} />
+      </button>
+    </div>
+  </div>
+
+  <div id="menu" popover>
+    <div class="menu-top">
+      <a href="/" class="brand" aria-label="Mahurangi Bird Song, home"><Logo size={42} /></a>
+      <button popovertarget="menu" popovertargetaction="hide" class="menu-btn" aria-label="Close menu">
+        <Icon name="close" size={24} />
+      </button>
+    </div>
+    <nav aria-label="Mobile">
+      <ul>
+        {[{ href: "/", label: "Home" }, ...nav, { href: "/contact", label: "Contact" }].map((n, i) => (
+          <li style={`--i:${i}`}><a href={n.href} aria-current={(n.href === "/" ? path === "/" : current(n.href)) ? "page" : undefined}>{n.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+    <a href="/donate" class="btn sun menu-donate">Donate to the project <Icon name="arrow" /></a>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 50;
+    padding-block: 0.9rem;
+    view-transition-name: site-header;
+  }
+  .site-header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: color-mix(in oklab, var(--paper) 82%, transparent);
+    backdrop-filter: blur(14px) saturate(1.4);
+    -webkit-backdrop-filter: blur(14px) saturate(1.4);
+    border-bottom: 1px solid var(--line);
+    opacity: 1;
+  }
+  @supports (animation-timeline: scroll()) {
+    .site-header::before {
+      opacity: 0;
+      animation: header-in linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 140px;
+    }
+  }
+  @keyframes header-in {
+    to { opacity: 1; }
+  }
+
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+  .brand :global(svg) {
+    transition: transform 0.6s var(--ease-spring);
+  }
+  .brand:hover :global(svg) {
+    transform: rotate(-12deg) scale(1.06);
+  }
+  .name {
+    font-family: var(--display);
+    font-weight: 650;
+    font-size: 1.08rem;
+    line-height: 1;
+    letter-spacing: -0.01em;
+  }
+  .name em {
+    font-style: italic;
+    font-weight: 500;
+    color: var(--kotare);
+  }
+
+  .desktop ul {
+    display: flex;
+    gap: 0.25rem;
+    list-style: none;
+    margin: 0;
+    padding: 0.3rem;
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--paper) 70%, transparent);
+    box-shadow: 0 0 0 1px var(--line);
+  }
+  .desktop a,
+  .contact {
+    position: relative;
+    display: block;
+    padding: 0.55rem 1rem;
+    border-radius: 999px;
+    font-weight: 550;
+    font-size: 0.97rem;
+    text-decoration: none;
+    transition: background-color 0.25s, color 0.25s;
+  }
+  .desktop a:hover,
+  .contact:hover {
+    background: var(--paper-2);
+  }
+  .desktop a[aria-current="page"] {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .contact[aria-current="page"] {
+    text-decoration: underline;
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .donate {
+    padding: 0.75rem 1.3rem;
+  }
+
+  .menu-btn {
+    display: none;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    border: 0;
+    background: var(--ink);
+    color: var(--paper);
+    cursor: pointer;
+  }
+
+  @media (max-width: 64rem) {
+    .desktop,
+    .contact {
+      display: none;
+    }
+    .menu-btn {
+      display: grid;
+    }
+  }
+  @media (max-width: 26rem) {
+    .donate { display: none; }
+  }
+
+  /* Mobile menu: native popover with entry and exit transitions. */
+  #menu {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100dvh;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 1rem var(--gutter) 2rem;
+    border: 0;
+    background:
+      radial-gradient(40rem 30rem at 100% 0%, var(--kowhai), transparent 60%),
+      var(--sky);
+    color: var(--ink);
+    flex-direction: column;
+    opacity: 0;
+    clip-path: circle(0% at calc(100% - 2.5rem) 2.5rem);
+    transition:
+      opacity 0.3s,
+      clip-path 0.6s var(--ease-out),
+      overlay 0.6s allow-discrete,
+      display 0.6s allow-discrete;
+  }
+  #menu:popover-open {
+    display: flex;
+    opacity: 1;
+    clip-path: circle(150% at calc(100% - 2.5rem) 2.5rem);
+  }
+  @starting-style {
+    #menu:popover-open {
+      opacity: 0;
+      clip-path: circle(0% at calc(100% - 2.5rem) 2.5rem);
+    }
+  }
+  .menu-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  #menu nav {
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+  #menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  #menu li {
+    transition: opacity 0.5s var(--ease-out), transform 0.6s var(--ease-out);
+    transition-delay: calc(0.15s + var(--i) * 0.04s);
+  }
+  @starting-style {
+    #menu:popover-open li {
+      opacity: 0;
+      transform: translateY(1.5rem);
+    }
+  }
+  #menu li a {
+    display: block;
+    padding-block: 0.2rem;
+    font-family: var(--display);
+    font-size: clamp(2.2rem, 10vw, 3.4rem);
+    font-weight: 560;
+    line-height: 1.1;
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+  #menu li a[aria-current="page"] {
+    font-style: italic;
+    color: var(--kotare-deep);
+  }
+  .menu-donate {
+    justify-content: center;
+  }
+</style>

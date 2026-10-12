@@ -1,0 +1,70 @@
+---
+import Base from "../../layouts/Base.astro";
+import StoryCard from "../../components/StoryCard.astro";
+import { stories } from "../../lib/content";
+
+const [lead, ...rest] = stories;
+const years = [...new Set(rest.map((p) => p.date.slice(0, 4)))];
+---
+<Base title="Stories" description="News from the trap lines: volunteer days, bird counts, events and milestones.">
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="eyebrow">Stories</p>
+      <h1>News from the trap lines.</h1>
+      <p class="lead">Volunteer days, bird counts, events and milestones since 2021.</p>
+      <nav class="years" aria-label="Jump to year">
+        {years.map((y) => <a href={`#y${y}`} class="chip">{y}</a>)}
+      </nav>
+    </div>
+  </section>
+
+  <section class="wrap lead-story">
+    <StoryCard post={lead} size="lg" />
+  </section>
+
+  {years.map((y) => (
+    <section class="wrap year" id={`y${y}`}>
+      <h2 class="year-h"><span>{y}</span></h2>
+      <div class="grid reveal-stagger">
+        {rest.filter((p) => p.date.startsWith(y)).map((p, i) => <StoryCard post={p} index={i % 6} />)}
+      </div>
+    </section>
+  ))}
+  <div class="end"></div>
+</Base>
+
+<style>
+  .years { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 2rem; }
+  .years a { text-decoration: none; transition: background-color 0.25s; }
+  .years a:hover { background: var(--kowhai); }
+  .lead-story { margin-bottom: clamp(3rem, 8vw, 6rem); }
+  .lead-story :global(.hit) {
+    grid-template-columns: 1.3fr 1fr;
+    align-items: center;
+    gap: clamp(1.5rem, 4vw, 4rem);
+  }
+  @media (max-width: 52rem) { .lead-story :global(.hit) { grid-template-columns: 1fr; } }
+  .year { margin-bottom: clamp(3rem, 7vw, 5rem); }
+  .year-h {
+    position: sticky;
+    top: 5.5rem;
+    z-index: 2;
+    margin-bottom: 1.5rem;
+    font-size: var(--step-3);
+    pointer-events: none;
+  }
+  .year-h span {
+    display: inline-block;
+    padding: 0.2rem 1rem;
+    border-radius: 999px;
+    background: var(--kowhai);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(2rem, 4vw, 3rem) clamp(1.25rem, 2.5vw, 2rem);
+  }
+  @media (max-width: 60rem) { .grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 36rem) { .grid { grid-template-columns: 1fr; } }
+  .end { height: clamp(2rem, 6vw, 4rem); }
+</style>

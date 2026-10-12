@@ -1,0 +1,25 @@
+---
+import Base from "../layouts/Base.astro";
+import SongLine from "../components/SongLine.astro";
+import Icon from "../components/Icon.astro";
+---
+<Base title="Page not found">
+  <section class="page-hero lost">
+    <div class="wrap">
+      <p class="eyebrow">404</p>
+      <h1>This page has flown the nest.</h1>
+      <p class="lead">It may have moved when we rebuilt the site.</p>
+      <div class="cta">
+        <a href="/" class="btn">Back home <Icon name="arrow" /></a>
+        <a href="/stories" class="btn ghost">Browse stories</a>
+      </div>
+    </div>
+    <SongLine seed={404} height={120} class="lost-song" />
+  </section>
+</Base>
+
+<style>
+  .lost { min-height: 80vh; padding-bottom: 4rem; }
+  .cta { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; }
+  .lost :global(.lost-song) { margin-top: 4rem; padding-inline: var(--gutter); }
+</style>

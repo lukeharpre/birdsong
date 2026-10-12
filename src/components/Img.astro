@@ -1,0 +1,29 @@
+---
+import { image } from "../lib/content";
+
+interface Props {
+  name: string;
+  alt: string;
+  sizes?: string;
+  class?: string;
+  eager?: boolean;
+  vt?: string;
+  style?: string;
+}
+const { name, alt, sizes = "100vw", class: cls, eager = false, vt, style } = Astro.props;
+const i = image(name);
+const css = [vt && `view-transition-name: ${vt}`, style].filter(Boolean).join("; ");
+---
+<img
+  src={i.src}
+  srcset={i.srcset}
+  sizes={sizes}
+  width={i.width}
+  height={i.height}
+  alt={alt}
+  class={cls}
+  style={css || undefined}
+  loading={eager ? "eager" : "lazy"}
+  fetchpriority={eager ? "high" : undefined}
+  decoding="async"
+/>

@@ -1,0 +1,244 @@
+---
+import Base from "../layouts/Base.astro";
+import Img from "../components/Img.astro";
+import Icon from "../components/Icon.astro";
+
+const roles = [
+  { title: "Trapping", body: "Monitor and maintain pest traps and record catches in Trap.NZ.", colour: "var(--kowhai)" },
+  { title: "Hub coordinator", body: "Support the volunteers in a local hub: coordinate trap servicing, welcome newcomers and be their point of contact.", colour: "var(--sky)" },
+  { title: "Planting and weeding", body: "Help out on native planting and weed control days.", colour: "var(--fern)" },
+  { title: "Community events", body: "Displays, working bees, fundraising and educational activities.", colour: "var(--buff)" },
+  { title: "Admin and comms", body: "Behind-the-scenes organising and communications that keep projects and volunteers going.", colour: "var(--paper-2)" },
+  { title: "Monitoring and citizen science", body: "Bird counts, coastal wildlife monitoring and other conservation projects.", colour: "color-mix(in oklab, var(--pohutukawa) 30%, var(--paper))" },
+];
+
+const why = [
+  "Protect native birds, wildlife and forest",
+  "Help restore the Mahurangi West peninsula",
+  "Get practical conservation experience and training",
+  "Meet people who care about the same things",
+  "Spend time outdoors somewhere beautiful",
+  "Build experience for your CV, with references where appropriate",
+];
+---
+<Base title="Get involved" description="Volunteer with Mahurangi Bird Song: trapping, planting, bird counts, events and more. No experience needed.">
+  <section class="page-hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Volunteer with us</p>
+        <h1>Make a difference in Mahurangi West.</h1>
+        <p class="lead">
+          Volunteers are at the heart of everything we do. Whether you have a few hours a month or more to give, no
+          experience is needed, just a willingness to help and learn.
+        </p>
+        <div class="cta">
+          <a href="/contact" class="btn">Join the team <Icon name="arrow" /></a>
+          <a href="#vacancies" class="btn ghost">Current vacancies</a>
+        </div>
+      </div>
+      <div class="hero-photos">
+        <Img name="2025-01-mike-n_mick.jpg" alt="Two volunteers unloading traps from a ute" sizes="(min-width: 60rem) 22vw, 50vw" eager class="p1" />
+        <Img name="2026-06-1000034899-1.jpg" alt="Volunteers gathered at Huawai Bay" sizes="(min-width: 60rem) 22vw, 50vw" eager class="p2" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Volunteer roles</p>
+        <h2>Pick what suits you.</h2>
+      </div>
+      <ul class="roles reveal-stagger">
+        {roles.map((r, i) => (
+          <li style={`--i:${i}; --c:${r.colour}`}>
+            <span class="idx">0{i + 1}</span>
+            <h3>{r.title}</h3>
+            <p>{r.body}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section id="vacancies" class="section vacancies">
+    <div class="wrap vac-grid">
+      <div class="stack reveal" style="--space: 1.3rem">
+        <p class="eyebrow">Current vacancies</p>
+        <h2>Two hubs need a coordinator.</h2>
+        <p class="lead">
+          Hub coordinators organise trap servicing in their area, welcome new volunteers and are the local point of
+          contact.
+        </p>
+        <a href="/contact" class="btn sun">Put your hand up <Icon name="arrow" /></a>
+      </div>
+      <div class="vac-cards reveal-stagger">
+        <a href="/our-work#hubs" style="--i:0"><span>Hub</span><strong>5</strong><em>South Mahurangi West</em></a>
+        <a href="/our-work#hubs" style="--i:1"><span>Hub</span><strong>8</strong><em>Pukapuka West</em></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap why-grid">
+      <div class="why-img reveal-scale">
+        <Img name="2026-05-img_1464.jpg" alt="Volunteers and families sharing food at a picnic table outside a shed" sizes="(min-width: 60rem) 45vw, 100vw" />
+      </div>
+      <div class="stack" style="--space: 1.4rem">
+        <p class="eyebrow reveal">Why volunteer</p>
+        <h2 class="reveal">Give back to the place you love.</h2>
+        <ul class="why reveal-stagger">
+          {why.map((w, i) => <li style={`--i:${i}`}>{w}</li>)}
+        </ul>
+        <p class="reveal">
+          Don’t see a role that fits? Get in touch anyway and we’ll find a way for you to be involved.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="join">
+    <div class="wrap join-inner reveal">
+      <h2>Together we can make Mahurangi West pest free for generations to come.</h2>
+      <a href="/contact" class="btn sun">Get in touch <Icon name="arrow" /></a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+  }
+  .cta { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; }
+  .hero-photos {
+    position: relative;
+    aspect-ratio: 1;
+  }
+  .hero-photos :global(img) {
+    position: absolute;
+    object-fit: cover;
+    box-shadow: 0 30px 60px -30px color-mix(in oklab, var(--ink) 45%, transparent);
+  }
+  .hero-photos :global(.p1) {
+    width: 62%;
+    height: 80%;
+    left: 0;
+    top: 0;
+    border-radius: 999px 999px var(--radius-lg) var(--radius-lg);
+  }
+  .hero-photos :global(.p2) {
+    width: 55%;
+    aspect-ratio: 1;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    border: 6px solid var(--paper);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-photos :global(img) { animation: pop 1.2s var(--ease-out) both; }
+    .hero-photos :global(.p2) { animation-delay: 0.25s; }
+  }
+  @keyframes pop { from { opacity: 0; transform: translateY(2rem) scale(0.94); } }
+  @media (max-width: 56rem) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-photos { max-width: 26rem; }
+  }
+
+  .roles {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  .roles li {
+    display: grid;
+    gap: 0.75rem;
+    align-content: start;
+    min-height: 15rem;
+    padding: clamp(1.5rem, 3vw, 2rem);
+    border-radius: var(--radius-lg);
+    background: var(--c);
+    transition: transform 0.5s var(--ease-spring), box-shadow 0.4s;
+  }
+  .roles li:hover {
+    transform: translateY(-6px) rotate(-0.6deg);
+    box-shadow: 0 30px 50px -30px color-mix(in oklab, var(--ink) 50%, transparent);
+  }
+  .idx { font-family: var(--display); font-style: italic; }
+  .roles h3 { font-size: var(--step-2); margin-top: auto; }
+  .roles p { color: var(--ink-2); }
+  @media (max-width: 60rem) { .roles { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 38rem) { .roles { grid-template-columns: 1fr; } .roles li { min-height: 0; } }
+
+  .vacancies {
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: var(--radius-lg);
+    margin-inline: clamp(0.5rem, 1.5vw, 1.25rem);
+  }
+  .vacancies .eyebrow { color: var(--kowhai); }
+  .vacancies .lead { color: color-mix(in oklab, var(--paper) 78%, transparent); }
+  .vac-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+  }
+  .vac-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .vac-cards a {
+    display: grid;
+    gap: 0.2rem;
+    padding: 1.5rem;
+    border-radius: var(--radius-lg);
+    background: var(--kowhai);
+    color: var(--ink);
+    text-decoration: none;
+    aspect-ratio: 4 / 5;
+    align-content: end;
+    transition: transform 0.5s var(--ease-spring), background-color 0.3s;
+  }
+  .vac-cards a:nth-child(2) { background: var(--sky); }
+  .vac-cards a:hover { transform: translateY(-6px) rotate(1deg); }
+  .vac-cards span { font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; font-size: var(--step--1); }
+  .vac-cards strong { font-family: var(--display); font-size: clamp(4rem, 3rem + 5vw, 8rem); line-height: 0.9; }
+  .vac-cards em { font-style: normal; font-weight: 500; }
+  @media (max-width: 56rem) { .vac-grid { grid-template-columns: 1fr; } .vac-cards a { aspect-ratio: auto; min-height: 11rem; } }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(2rem, 6vw, 6rem);
+    align-items: center;
+  }
+  .why-img { border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 4 / 5; }
+  .why-img :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .why { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.7rem; }
+  .why li {
+    display: flex;
+    gap: 0.8rem;
+    align-items: baseline;
+    font-size: var(--step-1);
+    padding-bottom: 0.7rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .why li::before { content: "✦"; color: var(--kotare); font-size: 0.9em; }
+  @media (max-width: 56rem) { .why-grid { grid-template-columns: 1fr; } .why-img { aspect-ratio: 16 / 11; } }
+
+  .join { padding-bottom: clamp(4rem, 9vw, 7rem); }
+  .join-inner {
+    display: grid;
+    justify-items: start;
+    gap: 2rem;
+    padding: clamp(2rem, 6vw, 5rem);
+    border-radius: var(--radius-lg);
+    background:
+      radial-gradient(30rem 20rem at 100% 100%, color-mix(in oklab, var(--kowhai) 60%, transparent), transparent 70%),
+      var(--sky);
+  }
+  .join h2 { font-size: var(--step-4); max-width: 20ch; }
+</style>

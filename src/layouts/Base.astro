@@ -1,0 +1,85 @@
+---
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+interface Props { title?: string; description?: string }
+const {
+  title,
+  description = "Volunteers restoring native birds, bats and bush across the Mahurangi West peninsula, Aotearoa.",
+} = Astro.props;
+const fullTitle = title ? `${title} · Mahurangi Bird Song` : "Mahurangi Bird Song · Bringing the birdsong back";
+---
+<!doctype html>
+<html lang="en-NZ">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#fffaf0" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+
+    <script>
+      // Buttons: the hover fill grows from wherever the pointer entered.
+      document.addEventListener("pointerover", (e) => {
+        const btn = (e.target as Element).closest?.(".btn") as HTMLElement | null;
+        if (!btn) return;
+        const r = btn.getBoundingClientRect();
+        btn.style.setProperty("--mx", `${e.clientX - r.left}px`);
+        btn.style.setProperty("--my", `${e.clientY - r.top}px`);
+      });
+
+      // Count-up numbers when they scroll into view.
+      const fmt = new Intl.NumberFormat("en-NZ");
+      const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (!entry.isIntersecting) continue;
+            io.unobserve(entry.target);
+            const el = entry.target as HTMLElement;
+            const end = Number(el.dataset.count);
+            const suffix = el.dataset.suffix ?? "";
+            if (still) continue;
+            const start = performance.now();
+            const dur = 1800;
+            const tick = (now: number) => {
+              const t = Math.min(1, (now - start) / dur);
+              const eased = 1 - Math.pow(1 - t, 4);
+              el.textContent = fmt.format(Math.round(end * eased)) + suffix;
+              if (t < 1) requestAnimationFrame(tick);
+            };
+            requestAnimationFrame(tick);
+          }
+        },
+        { threshold: 0.6 },
+      );
+      document.querySelectorAll<HTMLElement>("[data-count]").forEach((el) => {
+        if (!still) el.textContent = "0" + (el.dataset.suffix ?? "");
+        io.observe(el);
+      });
+
+      // Copy buttons (bank account, email).
+      document.addEventListener("click", async (e) => {
+        const btn = (e.target as Element).closest?.("[data-copy]") as HTMLElement | null;
+        if (!btn) return;
+        try {
+          await navigator.clipboard.writeText(btn.dataset.copy!);
+          btn.dataset.copied = "";
+          setTimeout(() => delete btn.dataset.copied, 2000);
+        } catch {}
+      });
+    </script>
+  </body>
+</html>

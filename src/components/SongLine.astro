@@ -1,0 +1,128 @@
+---
+// A stylised sonogram of birdsong: phrases of rising, falling and trilled notes
+// drawn as strokes. A playhead sweeps across and each note lights as it passes.
+// Seeded so every build draws the same song.
+
+interface Props { seed?: number; height?: number; class?: string; label?: string }
+const { seed = 7, height = 160, class: cls, label } = Astro.props;
+
+const W = 1200;
+const H = height;
+let s = seed;
+const rand = () => {
+  s = (s + 0x6d2b79f5) | 0;
+  let t = Math.imul(s ^ (s >>> 15), 1 | s);
+  t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+  return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+};
+
+const colours = ["var(--kotare)", "var(--bush)", "var(--pohutukawa)", "var(--kotare)", "var(--ink)"];
+type Note = { d: string; x: number; c: string; w: number };
+const notes: Note[] = [];
+
+let x = 24;
+while (x < W - 40) {
+  const phrase = 3 + Math.floor(rand() * 5);
+  const base = H * (0.3 + rand() * 0.45);
+  const c = colours[Math.floor(rand() * colours.length)];
+  for (let i = 0; i < phrase && x < W - 40; i++) {
+    const kind = rand();
+    const len = 10 + rand() * 26;
+    const y = base + (rand() - 0.5) * H * 0.3;
+    const h = H * (0.08 + rand() * 0.3);
+    let d: string;
+    if (kind < 0.35) {
+      // upsweep
+      d = `M${x} ${y + h / 2} C${x + len * 0.4} ${y + h / 2} ${x + len * 0.6} ${y - h / 2} ${x + len} ${y - h / 2}`;
+    } else if (kind < 0.6) {
+      // downsweep
+      d = `M${x} ${y - h / 2} C${x + len * 0.3} ${y - h / 2} ${x + len * 0.5} ${y + h / 2} ${x + len} ${y + h / 2}`;
+    } else if (kind < 0.85) {
+      // arch
+      d = `M${x} ${y + h / 3} Q${x + len / 2} ${y - h} ${x + len} ${y + h / 3}`;
+    } else {
+      // trill: a little zigzag
+      const steps = 4 + Math.floor(rand() * 4);
+      const sw = len / steps;
+      d = `M${x} ${y}` + Array.from({ length: steps }, (_, k) => ` L${x + sw * (k + 1)} ${y + (k % 2 ? -h / 4 : h / 4)}`).join("");
+    }
+    notes.push({ d, x: x / W, c, w: 2 + rand() * 2.5 });
+    x += len + 3 + rand() * 7;
+  }
+  x += 14 + rand() * 30;
+}
+---
+<figure class:list={["songline", cls]} role={label ? "img" : undefined} aria-label={label} aria-hidden={label ? undefined : "true"}>
+  <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none">
+    <g class="grid" stroke="currentColor" stroke-dasharray="2 8">
+      {[0.2, 0.5, 0.8].map((f) => <line x1="0" x2={W} y1={H * f} y2={H * f} />)}
+    </g>
+    <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+      {notes.map((n, i) => (
+        <path d={n.d} stroke={n.c} stroke-width={n.w} pathLength="1" style={`--x:${n.x.toFixed(3)};--i:${i}`} />
+      ))}
+    </g>
+  </svg>
+  <span class="playhead"></span>
+</figure>
+
+<style>
+  .songline {
+    position: relative;
+    margin: 0;
+    width: 100%;
+    overflow: hidden;
+  }
+  svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+  .grid line {
+    opacity: 0.18;
+    vector-effect: non-scaling-stroke;
+  }
+  .songline { color: var(--ink); }
+  path {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+    opacity: 0.45;
+    vector-effect: non-scaling-stroke;
+  }
+  .playhead {
+    position: absolute;
+    inset-block: 0;
+    left: 0;
+    width: 2px;
+    background: linear-gradient(transparent, var(--ink) 30% 70%, transparent);
+    opacity: 0;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    path {
+      stroke-dashoffset: 1;
+      animation:
+        draw 0.9s cubic-bezier(0.6, 0, 0.2, 1) forwards,
+        sing var(--loop, 9s) linear infinite;
+      animation-delay: calc(var(--x) * 1.4s), calc(1.8s + var(--x) * var(--loop, 9s));
+    }
+    .playhead {
+      animation: sweep var(--loop, 9s) linear 1.8s infinite;
+    }
+  }
+
+  @keyframes draw {
+    to { stroke-dashoffset: 0; }
+  }
+  @keyframes sing {
+    0%, 14%, 100% { opacity: 0.45; }
+    2% { opacity: 1; stroke-width: 7; }
+  }
+  @keyframes sweep {
+    0% { transform: translateX(0); opacity: 0.5; }
+    96% { opacity: 0.5; }
+    100% { transform: translateX(calc(100cqw)); opacity: 0; }
+  }
+  .songline { container-type: inline-size; }
+</style>

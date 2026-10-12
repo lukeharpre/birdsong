@@ -1,0 +1,199 @@
+---
+import Base from "../layouts/Base.astro";
+import Img from "../components/Img.astro";
+import Icon from "../components/Icon.astro";
+
+const team = [
+  ["Brian Bramell", "Chairperson", "2026-07-29958250418965785721.jpg"],
+  ["Rachel", "Chief Operating Officer", "2026-07-rachel11.jpg"],
+  ["Mike Neil", "Pest Control", "2026-07-20240926_17031411.jpg"],
+  ["Joanna Gullett", "Community Coordinator and Facilitator", "2026-07-joanna11-2.jpg"],
+  ["Hugh Kininmonth", "Treasurer", "2026-07-img_20251027_15505411-2.jpg"],
+  ["Beth Harper", "Fundraising", "2026-07-img_68901-1.jpg"],
+  ["Maxine Finlay", "Pest Plant Buffer Project Coordinator", "2026-07-img_003411-1.jpg"],
+  ["Robyn Mackenzie", "Planting Coordinator", "2026-07-img_34531-1.jpg"],
+  ["Mel Whaanga", "Iwi Advisor", "2026-08-49441.jpg"],
+];
+const tints = ["var(--kowhai)", "var(--sky)", "var(--fern)", "var(--buff)", "color-mix(in oklab, var(--pohutukawa) 35%, var(--paper))"];
+
+const timeline = [
+  ["2019", "Mahurangi West Pest forms to plan pest control in line with Pest Free Auckland 2050, covering about 2,100 hectares."],
+  ["2020", "The first bird counters are trained, setting a benchmark for the birdlife."],
+  ["2022", "Bird counts move onto Trap.NZ. Our first annual report. The Buffer Zone programme starts."],
+  ["2024", "A Foundation North grant helps fund a part-time trapper and new technology."],
+  ["2026", "Some 3,500 hectares under control, a renewed council-funded coordinator role and a three-year partnership with Auckland Council."],
+];
+---
+<Base title="About us" description="Who we are: a volunteer-led pest control group on the Mahurangi West peninsula, founded in 2019.">
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="eyebrow">About us</p>
+      <h1>Neighbours looking after the bush.</h1>
+      <p class="lead">
+        About 200 properties and over 150 volunteers across Mahurangi West and Hungry Creek, working towards healthy
+        native bush and thriving native wildlife.
+      </p>
+    </div>
+  </section>
+
+  <section class="section story">
+    <div class="wrap story-grid">
+      <div class="story-img reveal-scale">
+        <Img name="2025-01-mike_ridgetrack_talk.jpg" alt="A group of volunteers listening to a talk on a ridge track" sizes="(min-width: 60rem) 50vw, 100vw" />
+      </div>
+      <div class="stack" style="--space: 1.4rem">
+        <p class="eyebrow reveal">Our story</p>
+        <h2 class="reveal">From 2,100 to 3,500 hectares.</h2>
+        <p class="lead reveal">
+          Our volunteers bring a wide mix of backgrounds and experience to one job: controlling plant and animal pests
+          through a long-term, sustainable programme.
+        </p>
+        <p class="reveal">An Auckland Council grant pays for a part-time community coordinator.</p>
+        <a href="/resources#reports" class="link-arrow reveal">Read our annual reports <Icon name="arrow" size={18} /></a>
+      </div>
+    </div>
+
+    <ol class="wrap timeline reveal-stagger">
+      {timeline.map(([y, t], i) => (
+        <li style={`--i:${i}`}><span class="year">{y}</span><p>{t}</p></li>
+      ))}
+    </ol>
+  </section>
+
+  <section id="team" class="section team">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Our team</p>
+        <h2>The people behind the project.</h2>
+        <p class="lead">Leadership and support for restoration, pest control, fundraising, communications and community engagement.</p>
+      </div>
+      <ul class="people reveal-stagger">
+        {team.map(([name, role, img], i) => (
+          <li style={`--i:${i}; --t:${tints[i % tints.length]}`}>
+            <div class="portrait">
+              <Img name={img} alt={`Portrait of ${name}`} sizes="(min-width: 60rem) 16rem, 45vw" />
+            </div>
+            <h3>{name}</h3>
+            <p>{role}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section id="iwi" class="section iwi">
+    <div class="wrap iwi-grid">
+      <div class="stack" style="--space: 1.4rem">
+        <p class="eyebrow reveal">Iwi and whānau</p>
+        <h2 class="reveal">Longstanding connections to this whenua.</h2>
+        <p class="lead reveal">
+          Ngāti Maraeariki ki Mahurangi have ancestral ties to the area, including the pā sites of Maki and Korotangi.
+          Members have been involved in planning and running the project since its early days, helping set some of the
+          first trap lines.
+        </p>
+        <p class="reveal">
+          The Morehu whānau own land on Jamieson Bay Road. In 2021 a grant application to the Rodney Healthy Harbours
+          programme, made with the community, supported pine removal, restoration and native planting on this Māori
+          land. The Roberts whānau own land at Opahi Bay, where the community set up one of the early trap lines.
+        </p>
+        <p class="reveal">
+          Mel Whaanga has shared the Ngāti Maraeariki ki Mahurangi community Facebook page, with historical photos of
+          settlement at Opahi Bay and Sullivans Bay (formerly Otarawao).
+        </p>
+        <a href="https://www.facebook.com/Ngati-Maraeariki-1812037695767852/" class="link-arrow reveal" rel="noopener">
+          Ngāti Maraeariki on Facebook <Icon name="external" size={16} />
+        </a>
+      </div>
+      <figure class="iwi-img reveal">
+        <Img name="2025-01-bb_iwipineproj2_crop.jpg" alt="Community members gathered at the iwi pine removal project" sizes="(min-width: 60rem) 40vw, 100vw" />
+      </figure>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .story-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: clamp(2rem, 6vw, 6rem);
+    align-items: center;
+  }
+  .story-img { border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 4 / 3; }
+  .story-img :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  @media (max-width: 56rem) { .story-grid { grid-template-columns: 1fr; } }
+
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin-top: clamp(3rem, 7vw, 6rem);
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    position: relative;
+  }
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 1.05rem;
+    height: 2px;
+    background: repeating-linear-gradient(90deg, var(--ink) 0 6px, transparent 6px 12px);
+    opacity: 0.25;
+  }
+  .timeline li { position: relative; display: grid; gap: 0.75rem; align-content: start; }
+  .year {
+    justify-self: start;
+    padding: 0.25rem 0.8rem;
+    border-radius: 999px;
+    background: var(--kowhai);
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: var(--step-1);
+    position: relative;
+  }
+  .timeline li:last-child .year { background: var(--kotare); color: #fff; }
+  .timeline p { color: var(--ink-2); font-size: var(--step--1); line-height: 1.55; }
+  @media (max-width: 60rem) {
+    .timeline { grid-template-columns: 1fr; gap: 1.5rem; padding-left: 1.5rem; }
+    .timeline::before { left: 0.4rem; right: auto; top: 0; bottom: 0; width: 2px; height: auto; background: repeating-linear-gradient(180deg, var(--ink) 0 6px, transparent 6px 12px); }
+  }
+
+  .team { background: var(--paper-2); border-radius: var(--radius-lg); margin-inline: clamp(0.5rem, 1.5vw, 1.25rem); }
+  .people {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(14rem, 100%), 1fr));
+    gap: clamp(1.5rem, 3vw, 2.5rem) 1.25rem;
+  }
+  .people li { display: grid; gap: 0.3rem; align-content: start; }
+  .portrait {
+    aspect-ratio: 4 / 5;
+    border-radius: 999px 999px var(--radius) var(--radius);
+    overflow: hidden;
+    background: var(--t);
+    margin-bottom: 0.8rem;
+  }
+  .portrait :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s var(--ease-out), border-radius 0.6s var(--ease-out);
+  }
+  .people li:hover .portrait :global(img) { transform: scale(1.06); }
+  .people h3 { font-size: var(--step-1); }
+  .people p { color: var(--muted); font-size: var(--step--1); font-weight: 500; }
+  @media (max-width: 30rem) { .people { grid-template-columns: 1fr 1fr; } }
+
+  .iwi-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: clamp(2rem, 6vw, 6rem);
+    align-items: center;
+  }
+  .iwi-img { margin: 0; }
+  .iwi-img :global(img) { border-radius: var(--radius-lg) var(--radius-lg) 999px 999px; aspect-ratio: 4 / 5; object-fit: cover; width: 100%; }
+  @media (max-width: 56rem) { .iwi-grid { grid-template-columns: 1fr; } }
+</style>

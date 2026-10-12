@@ -1,0 +1,150 @@
+---
+import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
+import { page, renderHtml } from "../lib/content";
+
+// The old page is one long column with a hand-made list of contents. Normalise
+// its headings and split it at each plant so we can build a live contents nav.
+let html = page("plant-pests").html;
+html = html
+  .replace(/^[\s\S]*?(?=<h[23]>)/, "") // intro line, lead photo and the old contents lists
+  .replace(/<(\/?)h3>/g, "<$1h2>")
+  .replace(/<(\/?)h4>/g, "<$1h3>");
+
+const strip = (s: string) => s.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+const slug = (s: string) => s.toLowerCase().replace(/\(.*?\)/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
+const sections = html
+  .split(/(?=<h2>)/)
+  .filter((s) => s.startsWith("<h2>"))
+  .map((s) => {
+    const heading = strip(s.match(/<h2>([\s\S]*?)<\/h2>/)![1]);
+    const [common, latin] = heading.replace(/\s*–\s*Pest Plant Control.*$/, "").split(/\s*\(/);
+    const body = s.replace(/<h2>[\s\S]*?<\/h2>/, "");
+    return { id: slug(common), common: common.trim(), latin: latin ? latin.replace(/\)$/, "") : null, body };
+  });
+---
+<Base title="Pest plants" description="A field guide to the pest plants smothering native bush in Mahurangi West, and how to control them.">
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="eyebrow">Field guide</p>
+      <h1>Pest plants and how to beat them.</h1>
+      <p class="lead">
+        These invasive plants smother and kill native bush, taking away habitat and food for native wildlife. Here’s
+        how to recognise them and get rid of them.
+      </p>
+    </div>
+  </section>
+
+  <div class="wrap layout" style={`timeline-scope: ${sections.map((_, i) => `--s${i}`).join(", ")}`}>
+    <nav class="toc" aria-label="Plants in this guide">
+      <p class="toc-h">In this guide</p>
+      <ol>
+        {sections.map((s, i) => (
+          <li><a href={`#${s.id}`} style={`animation-timeline: --s${i}`}>{s.common}</a></li>
+        ))}
+      </ol>
+      <a href="/contact" class="btn sun help">Ask for help <Icon name="arrow" /></a>
+    </nav>
+
+    <div class="sections">
+      {sections.map((s, i) => (
+        <section id={s.id} class="plant" style={`view-timeline-name: --s${i}`}>
+          <header>
+            <span class="n">{String(i + 1).padStart(2, "0")}</span>
+            <h2>{s.common}</h2>
+            {s.latin && <p class="latin">{s.latin}</p>}
+          </header>
+          <div class="prose" set:html={renderHtml(s.body, "(min-width: 60rem) 40rem, 100vw")} />
+        </section>
+      ))}
+    </div>
+  </div>
+</Base>
+
+<style>
+  .layout {
+    display: grid;
+    grid-template-columns: 15rem minmax(0, 1fr);
+    gap: clamp(2rem, 6vw, 6rem);
+    padding-block: clamp(2rem, 5vw, 4rem) clamp(4rem, 9vw, 7rem);
+  }
+  .toc {
+    position: sticky;
+    top: 6.5rem;
+    align-self: start;
+    display: grid;
+    gap: 1rem;
+  }
+  .toc-h {
+    font-size: var(--step--1);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--bush);
+  }
+  .toc ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.15rem;
+    border-left: 2px solid var(--line);
+  }
+  .toc a {
+    display: block;
+    padding: 0.35rem 0 0.35rem 1rem;
+    margin-left: -2px;
+    border-left: 2px solid transparent;
+    text-decoration: none;
+    font-size: 0.95rem;
+    color: var(--ink-2);
+    transition: color 0.2s;
+  }
+  .toc a:hover { color: var(--ink); }
+  @supports (timeline-scope: --a) {
+    .toc a {
+      animation: toc-active linear both;
+      animation-range: cover 0% cover 100%;
+    }
+  }
+  @keyframes toc-active {
+    0%, 100% { color: var(--ink-2); border-color: transparent; font-weight: 400; }
+    0.1%, 99.9% { color: var(--ink); border-color: var(--kotare); font-weight: 600; }
+  }
+  .help { justify-self: start; margin-top: 0.5rem; }
+
+  .plant {
+    padding-block: clamp(2rem, 5vw, 3.5rem);
+    border-top: 1px solid var(--line);
+    scroll-margin-top: 5.5rem;
+    /* Shrink the timeline's viewport to a thin band 30% down the screen, so
+       exactly one section "covers" it at a time and one contents link is lit. */
+    view-timeline-inset: 30% 69%;
+  }
+  .plant:first-child { border-top: 0; padding-top: 0; }
+  .plant header { display: grid; gap: 0.4rem; margin-bottom: 1.5rem; }
+  .n {
+    font-family: var(--display);
+    font-style: italic;
+    color: var(--kotare);
+  }
+  .plant h2 { font-size: var(--step-3); }
+  .latin { font-style: italic; color: var(--muted); }
+  .plant .prose { max-width: 44rem; }
+  .plant .prose :global(h3) { font-size: var(--step-1); margin-top: 1.6em; }
+
+  @media (max-width: 60rem) {
+    .layout { grid-template-columns: 1fr; }
+    .toc { position: static; }
+    .toc ol { display: flex; flex-wrap: wrap; gap: 0.4rem; border: 0; }
+    .toc a {
+      padding: 0.35rem 0.8rem;
+      margin: 0;
+      border: 0;
+      border-radius: 999px;
+      background: var(--paper-2);
+      animation: none !important;
+    }
+  }
+</style>

@@ -1,0 +1,95 @@
+---
+import Img from "./Img.astro";
+import SongLine from "./SongLine.astro";
+import { date, isPoster, type Post } from "../lib/content";
+
+interface Props { post: Post; size?: "lg" | "md"; index?: number }
+const { post, size = "md", index = 0 } = Astro.props;
+---
+<article class:list={["card", size]} style={`--i:${index}`}>
+  <a href={`/stories/${post.slug}`} class="hit">
+    <div class:list={["media", { poster: isPoster(post.cover) }]}>
+      {post.cover ? (
+        <Img name={post.cover} alt="" sizes={size === "lg" ? "(min-width: 60rem) 50vw, 100vw" : "(min-width: 60rem) 30vw, (min-width: 40rem) 50vw, 100vw"} vt={`story-${post.slug}`} />
+      ) : (
+        <SongLine seed={post.title.length} height={140} />
+      )}
+    </div>
+    <div class="body">
+      <time datetime={post.date}>{date(post.date, { day: undefined })}</time>
+      <h3>{post.title}</h3>
+      {size === "lg" && <p>{post.excerpt}</p>}
+      <span class="more" aria-hidden="true">Read the story →</span>
+    </div>
+  </a>
+</article>
+
+<style>
+  .card {
+    position: relative;
+  }
+  .hit {
+    display: grid;
+    gap: 1.1rem;
+    text-decoration: none;
+    height: 100%;
+  }
+  .media {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--sky);
+    display: grid;
+    place-items: center;
+  }
+  .lg .media { aspect-ratio: 16 / 11; border-radius: var(--radius-lg); }
+  .media :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.9s var(--ease-out), filter 0.6s;
+  }
+  .media.poster { background: #fff; }
+  .media.poster :global(img) { object-fit: contain; padding: 8%; }
+  .hit:hover .media :global(img) { transform: scale(1.05); }
+  .media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--ink) 8%, transparent);
+    pointer-events: none;
+  }
+  .body {
+    display: grid;
+    gap: 0.5rem;
+    align-content: start;
+  }
+  time {
+    font-size: var(--step--1);
+    font-weight: 600;
+    color: var(--bush);
+    letter-spacing: 0.04em;
+  }
+  h3 {
+    font-size: var(--step-1);
+    line-height: 1.2;
+    background: linear-gradient(var(--kowhai), var(--kowhai)) 0 92% / 0% 0.35em no-repeat;
+    transition: background-size 0.6s var(--ease-out);
+  }
+  .lg h3 { font-size: var(--step-3); }
+  .hit:hover h3 { background-size: 100% 0.35em; }
+  p { color: var(--ink-2); max-width: 36rem; }
+  .more {
+    font-weight: 600;
+    font-size: var(--step--1);
+    color: var(--kotare-deep);
+    opacity: 0;
+    transform: translateX(-0.5rem);
+    transition: opacity 0.3s, transform 0.4s var(--ease-out);
+  }
+  .hit:hover .more,
+  .hit:focus-visible .more { opacity: 1; transform: none; }
+  @media (hover: none) { .more { opacity: 1; transform: none; } }
+</style>

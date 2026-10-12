@@ -1,0 +1,128 @@
+---
+import Base from "../layouts/Base.astro";
+import Img from "../components/Img.astro";
+import Icon from "../components/Icon.astro";
+---
+<Base title="Contact" description="Get in touch with Mahurangi Bird Song about volunteering, the buffer zone or supporting our work.">
+  <section class="page-hero">
+    <div class="wrap grid">
+      <div>
+        <p class="eyebrow">Contact us</p>
+        <h1>Kia ora, get in touch.</h1>
+        <p class="lead">
+          Whether you’re keen to volunteer, want to support our work, live in the buffer zone or just have a question,
+          we’d love to hear from you.
+        </p>
+      </div>
+      <div class="photo">
+        <Img name="2023-03-record_possums.jpg" alt="A young volunteer holding up two trapped possums" sizes="(min-width: 60rem) 30vw, 80vw" eager />
+      </div>
+    </div>
+  </section>
+
+  <section class="section-sm">
+    <div class="wrap cards reveal-stagger">
+      <div class="card main" style="--i:0">
+        <Icon name="mail" size={28} />
+        <h2>Email</h2>
+        <a href="mailto:mahurangiwestpest@gmail.com" class="big">mahurangiwestpest@gmail.com</a>
+        <div class="row">
+          <a href="mailto:mahurangiwestpest@gmail.com" class="btn sun">Write to us <Icon name="arrow" /></a>
+          <button class="btn ghost" data-copy="mahurangiwestpest@gmail.com">
+            <span class="c-idle"><Icon name="copy" size={18} /> Copy</span>
+            <span class="c-done"><Icon name="check" size={18} /> Copied</span>
+          </button>
+        </div>
+      </div>
+      <div class="card" style="--i:1">
+        <Icon name="phone" size={28} />
+        <h2>Chairperson</h2>
+        <p class="who">Brian Bramell</p>
+        <a href="tel:02102575957" class="big">021 0257 5957</a>
+        <a href="mailto:BLBCIMS@gmail.com" class="small">BLBCIMS@gmail.com</a>
+      </div>
+      <div class="card" style="--i:2">
+        <Icon name="external" size={28} />
+        <h2>Facebook</h2>
+        <p>Updates, photos and trap line chat.</p>
+        <a href="https://www.facebook.com/search/top?q=mahurangi%20west%20pest" class="link-arrow" rel="noopener">Find us on Facebook <Icon name="arrow" size={18} /></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-sm topics">
+    <div class="wrap">
+      <h2 class="eyebrow">People often ask about</h2>
+      <ul class="reveal-stagger">
+        <li style="--i:0"><a href="/get-involved">Volunteering <Icon name="arrow" size={18} /></a></li>
+        <li style="--i:1"><a href="/our-work#hubs">Joining a hub <Icon name="arrow" size={18} /></a></li>
+        <li style="--i:2"><a href="/our-work#buffer">The buffer zone <Icon name="arrow" size={18} /></a></li>
+        <li style="--i:3"><a href="/our-work#traps">Adding your traps to Trap.NZ <Icon name="arrow" size={18} /></a></li>
+        <li style="--i:4"><a href="/donate">Tax receipts <Icon name="arrow" size={18} /></a></li>
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+  }
+  .photo {
+    justify-self: end;
+    width: min(100%, 22rem);
+    aspect-ratio: 4 / 5;
+    border-radius: 999px;
+    overflow: hidden;
+    rotate: 4deg;
+    box-shadow: 0 30px 60px -30px color-mix(in oklab, var(--ink) 45%, transparent);
+  }
+  .photo :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  @media (max-width: 56rem) { .grid { grid-template-columns: 1fr; } .photo { justify-self: start; width: min(70%, 18rem); } }
+
+  .section-sm { padding-block: clamp(2rem, 5vw, 4rem); }
+  .cards {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 1rem;
+  }
+  .card {
+    display: grid;
+    gap: 0.6rem;
+    align-content: start;
+    justify-items: start;
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+    border-radius: var(--radius-lg);
+    background: var(--paper-2);
+  }
+  .card.main { background: var(--sky); }
+  .card h2 { font-size: var(--step-2); margin-top: 0.5rem; }
+  .card :global(svg) { color: var(--kotare-deep); }
+  .big { font-family: var(--display); font-size: var(--step-1); font-weight: 600; text-decoration: none; overflow-wrap: anywhere; }
+  .main .big { font-size: var(--step-2); }
+  .big:hover { text-decoration: underline; }
+  .who { font-weight: 600; }
+  .small { color: var(--ink-2); font-size: var(--step--1); }
+  .row { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.75rem; }
+  @media (max-width: 60rem) { .cards { grid-template-columns: 1fr; } }
+
+  .topics { padding-bottom: clamp(4rem, 9vw, 7rem); }
+  .topics h2 { font-family: var(--body); }
+  .topics ul { list-style: none; padding: 0; margin: 1.25rem 0 0; display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .topics a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.2rem;
+    border-radius: 999px;
+    background: var(--paper);
+    box-shadow: inset 0 0 0 1.5px var(--ink);
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.25s, transform 0.35s var(--ease-spring);
+  }
+  .topics a:hover { background: var(--kowhai); transform: translateY(-2px); }
+</style>
