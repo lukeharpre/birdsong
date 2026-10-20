@@ -188,10 +188,11 @@ for (const p of rawPages) {
 
 function issues(html) {
   // Each issue is an <h2>Month Year</h2>, a PDF link, then a list of headlines.
+  // The 2021–22 issues use <h3> and sometimes "Month Year Issue eNews".
   const out = [];
-  const blocks = html.split(/<h2[^>]*>/).slice(1);
+  const blocks = html.split(/<h[23][^>]*>/).slice(1);
   for (const b of blocks) {
-    const title = text(b.split("</h2>")[0]);
+    const title = text(b.split(/<\/h[23]>/)[0]).replace(/\s+Issue\b/i, "");
     const pdf = b.match(/href="([^"]+\.pdf)"/)?.[1] ?? null;
     const topics = [...b.matchAll(/<li[^>]*>([\s\S]*?)<\/li>/g)]
       .map((m) => text(m[1]).replace(/\s*–\s*To listen.*$/, ""))
@@ -204,6 +205,21 @@ function issues(html) {
 const rawBySlug = Object.fromEntries(rawPages.map((p) => [p.slug, p.content]));
 const newsletters = issues(rawBySlug["mahurangi-west-pest-enews"] ?? "");
 const reports = issues(rawBySlug["annual-reports"] ?? "").map(({ title, pdf }) => ({ title, pdf }));
+
+// Keep our own copy of every PDF so links survive the old site going away.
+// Served from public/files/ under the same name scheme as media.
+const FILES = new URL("../public/files/", import.meta.url).pathname;
+await mkdir(FILES, { recursive: true });
+for (const { pdf } of [...newsletters, ...reports]) {
+  const file = join(FILES, mediaName(pdf));
+  try {
+    await access(file);
+  } catch {
+    const res = await fetch(pdf);
+    if (!res.ok) throw new Error(`${res.status} ${pdf}`);
+    await writeFile(file, Buffer.from(await res.arrayBuffer()));
+  }
+}
 
 // ---- write -----------------------------------------------------------------
 

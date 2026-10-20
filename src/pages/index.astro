@@ -4,7 +4,9 @@ import Img from "../components/Img.astro";
 import Icon from "../components/Icon.astro";
 import SongLine from "../components/SongLine.astro";
 import StoryCard from "../components/StoryCard.astro";
-import { stories } from "../lib/content";
+import Campaign from "../components/Campaign.astro";
+import { stories, pinned } from "../lib/content";
+import { campaign } from "../lib/campaign";
 
 const birds = [
   ["Kākā", "forest parrot"],
@@ -20,44 +22,35 @@ const birds = [
 
 const work = [
   {
-    title: "Predator control",
-    tag: "Possums · rats · stoats",
-    body: "Volunteers check Timms, Victor and DOC200 traps across nine hubs and log every catch in Trap.NZ, so our data joins thousands of other projects working towards a predator-free Aotearoa.",
-    img: "2025-01-mike_baitingtraps2.jpg",
-    alt: "Volunteers baiting traps in the bush",
-    colour: "var(--kowhai)",
-    href: "/our-work#predators",
-  },
-  {
-    title: "Pest plants",
-    tag: "Buffer Zone programme",
-    body: "Climbing asparagus, moth plant and woolly nightshade smother native bush. We run weed cafés and help landowners next to the regional parks clear them for good.",
-    img: "2025-05-allison_nada_weedcafe.jpg",
-    alt: "Two volunteers holding pulled weeds at a weed café",
-    colour: "var(--fern)",
-    href: "/our-work#buffer",
-  },
-  {
-    title: "Bird and bat counts",
+    title: "Understand",
     tag: "20 monitoring stations",
-    body: "Every season our counters spend half an hour at each station, recording what they see and hear. The results go to Trap.NZ, eBird and the New Zealand Bird Atlas.",
+    body: "Volunteers count birds at 20 stations every season, listen for pekapeka and watch over the coast.",
     img: "2021-02-img_20201215_093739.jpg",
-    alt: "Bird counters with binoculars learning from an experienced counter",
+    alt: "Bird counters with binoculars on a picnic rug at the edge of the bush",
     colour: "var(--sky)",
-    href: "/our-work#birds",
+    href: "/our-work#understand",
   },
   {
-    title: "Planting days",
-    tag: "Restoring the whenua",
-    body: "From the Jamieson Bay esplanade to Huawai Bay, we swap weeds for natives, and finish with a barbecue.",
+    title: "Restore",
+    tag: "Planting · weeding · regeneration",
+    body: "We plant natives and clear the weeds that smother the bush, from Jamieson Bay to Huawai Bay.",
     img: "2025-08-group-pic_end-of-day.jpg",
     alt: "A group of volunteers at the end of a planting day",
-    colour: "var(--buff)",
-    href: "/get-involved",
+    colour: "var(--fern)",
+    href: "/our-work#restore",
+  },
+  {
+    title: "Protect",
+    tag: "16,000+ pest catches since 2019",
+    body: "With Auckland Council we look after what has been restored, so it keeps feeding and sheltering birds.",
+    img: "2025-05-native_daphne_foreshore.jpg",
+    alt: "Native plants growing on the foreshore",
+    colour: "var(--kowhai)",
+    href: "/our-work#protect",
   },
 ];
 
-const latest = stories.slice(0, 3);
+const latest = pinned;
 ---
 <Base>
   <!-- ============================================================ hero -->
@@ -84,24 +77,24 @@ const latest = stories.slice(0, 3);
           ))}
         </h1>
         <p class="lead hero-in" style="--d:7">
-          Over 150 volunteers trap predators, clear pest plants and count birds across 3,500 hectares of the
-          Mahurangi West peninsula. Half an hour of your time makes a difference.
+          Restoring native bird habitat across 3,500 hectares of Mahurangi West. Over 150 volunteers plant natives,
+          clear the weeds that smother the bush and count the birds that come back.
         </p>
         <div class="cta hero-in" style="--d:8">
-          <a href="/get-involved" class="btn">Join the volunteers <Icon name="arrow" /></a>
+          <a href="/donate" class="btn">Donate <Icon name="arrow" /></a>
           <a href="/our-work" class="btn ghost">See our work</a>
         </div>
       </div>
 
-      <div class="collage" aria-label="Volunteers at work around Mahurangi West">
+      <div class="collage" aria-label="Volunteers restoring native habitat around Mahurangi West">
         <div class="ph arch">
-          <Img name="2021-01-img_20201206_114120-1.jpg" alt="A volunteer fixing a yellow trap to a tree above the estuary, pōhutukawa in flower below" sizes="(min-width: 64rem) 34vw, 80vw" eager />
+          <Img name="2025-02-img_20240414_102615.jpg" alt="Volunteers planting on the edge of the estuary beside a Mahurangi West Pest flag" sizes="(min-width: 64rem) 34vw, 80vw" eager />
         </div>
         <div class="ph round">
-          <Img name="2026-05-img_1454.jpg" alt="Families walking down a grassy hill towards the estuary on Project Birdsong day" sizes="(min-width: 64rem) 16vw, 40vw" eager />
+          <Img name="2024-05-gill-cossey_nada-cottrell_grant-cossey.jpg" alt="Three volunteers planting flaxes on a bank above the water" sizes="(min-width: 64rem) 16vw, 40vw" eager />
         </div>
         <div class="ph pill">
-          <Img name="2021-01-img_20210102_101044-1.jpg" alt="Volunteers learning to check a trap" sizes="(min-width: 64rem) 14vw, 36vw" />
+          <Img name="2025-08-volunteer-paul-mulching-plants.jpg" alt="A volunteer mulching newly planted natives" sizes="(min-width: 64rem) 14vw, 36vw" />
         </div>
         <a class="badge" href="/stories/kaka-making-a-comeback-in-mahurangi-west">
           <svg viewBox="0 0 120 120" class="ring" aria-hidden="true">
@@ -118,7 +111,8 @@ const latest = stories.slice(0, 3);
   </section>
 
   <!-- ========================================================= marquee -->
-  <section class="marquee" aria-label="Some of the native species our work protects">
+  <section class="marquee" aria-labelledby="for-h">
+    <h2 id="for-h" class="for">Who we’re doing this for</h2>
     <div class="track">
       {[0, 1].map((copy) => (
         <ul aria-hidden={copy ? "true" : undefined}>
@@ -134,41 +128,34 @@ const latest = stories.slice(0, 3);
   <section class="section impact">
     <div class="wrap">
       <div class="section-head reveal">
-        <p class="eyebrow">The last twelve months</p>
+        <p class="eyebrow">Our impact</p>
         <h2>Small tasks, done by many hands, <em class="accent">add up.</em></h2>
       </div>
       <dl class="stats reveal-stagger">
-        <div class="stat big" style="--i:0">
-          <dt>pest animals removed</dt>
-          <dd><span data-count="3791">3,791</span></dd>
-          <p>That’s an average of 73 every week.</p>
-        </div>
-        <div class="stat" style="--i:1">
-          <dt>hectares protected</dt>
+        <div class="stat" style="--i:0">
+          <dt>hectares restored and protected</dt>
           <dd><span data-count="3500">3,500</span></dd>
         </div>
-        <div class="stat" style="--i:2">
+        <div class="stat" style="--i:1">
           <dt>volunteers</dt>
           <dd><span data-count="150" data-suffix="+">150+</span></dd>
         </div>
-        <div class="stat" style="--i:3">
-          <dt>new traps and tools</dt>
-          <dd><span data-count="172">172</span></dd>
-        </div>
-        <div class="stat" style="--i:4">
-          <dt>trapping hubs</dt>
-          <dd><span data-count="9">9</span></dd>
+        <div class="stat" style="--i:2">
+          <dt>properties involved</dt>
+          <dd><span data-count="200">200</span></dd>
         </div>
       </dl>
     </div>
   </section>
+
+  {campaign && <Campaign {...campaign} />}
 
   <!-- ===================================================== what we do -->
   <section class="section work">
     <div class="wrap">
       <div class="section-head reveal">
         <p class="eyebrow">What we do</p>
-        <h2>Four ways we look after the peninsula.</h2>
+        <h2>Three ways we bring the birdsong back.</h2>
       </div>
       <ol class="deck">
         {work.map((w, i) => (
@@ -196,7 +183,7 @@ const latest = stories.slice(0, 3);
     <div class="wrap micro-grid">
       <div class="stack reveal" style="--space: 1.5rem">
         <p class="eyebrow">Micro-volunteering</p>
-        <h2>Got half an hour? That’s enough.</h2>
+        <h2>Got half an hour?</h2>
         <p class="lead">
           We work on the principle that many hands make light work. Small, regular contributions keep our projects
           going without anyone feeling overloaded.
@@ -206,15 +193,15 @@ const latest = stories.slice(0, 3);
       <ul class="clocks reveal-stagger">
         <li style="--i:0; --mins:30">
           <span class="dial"><span>30<small>min</small></span></span>
-          <div><h3>Count birds</h3><p>Half an hour at your station, four times a year, once a season.</p></div>
+          <div><h3>Count birds</h3><p>Half an hour at your station, once a season.</p></div>
         </li>
-        <li style="--i:1; --mins:30">
-          <span class="dial"><span>30<small>min</small></span></span>
-          <div><h3>Walk a trap line</h3><p>Check, reset and re-bait the traps along your line.</p></div>
+        <li style="--i:1; --mins:60">
+          <span class="dial"><span>1<small>hour</small></span></span>
+          <div><h3>Join a weed café</h3><p>Weeding, mulching and watering natives with your neighbours.</p></div>
         </li>
-        <li style="--i:2; --mins:20">
-          <span class="dial"><span>15–20<small>min</small></span></span>
-          <div><h3>Check community traps</h3><p>There are usually three to five of them.</p></div>
+        <li style="--i:2; --mins:60">
+          <span class="dial"><span><Icon name="leaf" size={26} /></span></span>
+          <div><h3>Join a planting day</h3><p>Help plant natives, from the Jamieson Bay esplanade to Huawai Bay.</p></div>
         </li>
       </ul>
     </div>
@@ -239,7 +226,7 @@ const latest = stories.slice(0, 3);
       <div class="head-row reveal">
         <div class="section-head">
           <p class="eyebrow">Latest stories</p>
-          <h2>News from the trap lines.</h2>
+          <h2>News from the bush.</h2>
         </div>
         <a href="/stories" class="link-arrow">All {stories.length} stories <Icon name="arrow" size={18} /></a>
       </div>
@@ -256,18 +243,18 @@ const latest = stories.slice(0, 3);
   <section class="section iwi">
     <div class="wrap iwi-grid">
       <div class="iwi-img reveal">
-        <Img name="2021-01-iwi_mathew_brian-3.jpg" alt="Mathew Hakaraia and Brian Bramell prepare to set a stoat trap on iwi land" sizes="(min-width: 60rem) 40vw, 100vw" />
+        <Img name="2025-01-bb_iwipineproj2_crop.jpg" alt="Community members gathered at the iwi pine removal project" sizes="(min-width: 60rem) 40vw, 100vw" />
       </div>
       <div class="stack reveal" style="--space: 1.4rem">
         <p class="eyebrow">Mana whenua</p>
         <h2>Caring for the whenua, together.</h2>
         <p class="lead">
           Ngāti Maraeariki ki Mahurangi have ancestral ties to this land, including the pā sites of Maki and
-          Korotangi, and helped plan and set some of the first trap lines.
+          Korotangi, and have been part of the project since its early days.
         </p>
         <p>
-          The Morehu and Roberts whānau have worked with the community on restoration and trapping on their land at
-          Jamieson Bay and Opahi Bay.
+          The Morehu and Roberts whānau have worked alongside the community on their land at Jamieson Bay and Opahi
+          Bay.
         </p>
         <a href="/about#iwi" class="link-arrow">Our iwi partners <Icon name="arrow" size={18} /></a>
       </div>
@@ -278,7 +265,7 @@ const latest = stories.slice(0, 3);
     <div class="wrap">
       <h2 id="thanks-h" class="eyebrow">With thanks to</h2>
       <ul class="reveal-stagger">
-        {["Auckland Council", "Foundation North", "Predator Free NZ", "The Forest Bridge Trust", "Judith Williams Trust", "Pic’s Peanut Butter", "Blue Star Group", "Mahurangi Estates"].map((n, i) => (
+        {["Ngāti Maraeariki ki Mahurangi", "Auckland Council", "Foundation North", "Predator Free NZ", "The Forest Bridge Trust", "Judith Williams Trust", "Pic’s Peanut Butter", "Blue Star Group", "Mahurangi Estates"].map((n, i) => (
           <li style={`--i:${i}`}>{n}</li>
         ))}
       </ul>
@@ -289,20 +276,22 @@ const latest = stories.slice(0, 3);
   <section class="donate-band">
     <div class="wrap donate-grid">
       <div class="stack" style="--space: 1.4rem">
-        <h2 class="reveal">Help keep the traps set.</h2>
+        <h2 class="reveal">Help bring the birdsong back.</h2>
         <p class="lead reveal">
-          Donations pay for traps and bait, wildlife monitoring, volunteer support and local paid trappers.
+          Donations pay for bird, bat and coastal monitoring, native plants and planting days, weed control and the
+          long-term care of restored areas.
         </p>
       </div>
       <div class="bank reveal">
         <p class="bank-label">Bank transfer to Mahurangi West Pest Inc</p>
         <p class="acct">06-0483-0894183-00</p>
+        <p class="ref">Reference: <strong>BBB</strong></p>
         <div class="bank-actions">
           <button class="btn" data-copy="06-0483-0894183-00">
             <span class="c-idle"><Icon name="copy" size={18} /> Copy account number</span>
             <span class="c-done"><Icon name="check" size={18} /> Copied</span>
           </button>
-          <a href="/donate" class="link-arrow">Tax receipts <Icon name="arrow" size={18} /></a>
+          <a href="/donate" class="link-arrow">Ways to give <Icon name="arrow" size={18} /></a>
         </div>
       </div>
     </div>
@@ -543,6 +532,27 @@ const latest = stories.slice(0, 3);
     position: relative;
     z-index: 3;
   }
+  .for {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    padding-inline: calc(2vw + var(--gutter)) 2.5rem;
+    background: linear-gradient(90deg, var(--ink) 75%, transparent);
+    font-family: var(--body);
+    font-size: var(--step--1);
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--kowhai);
+    white-space: nowrap;
+  }
+  @media (max-width: 40rem) {
+    .for { position: static; padding: 0 0 0.8rem calc(2vw + var(--gutter)); background: none; }
+  }
   .track {
     display: flex;
     width: max-content;
@@ -593,7 +603,7 @@ const latest = stories.slice(0, 3);
   }
   .stats {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
     margin: 0;
   }
@@ -607,16 +617,9 @@ const latest = stories.slice(0, 3);
     background: var(--paper-2);
     min-height: 13rem;
   }
-  .stat:nth-child(3) { background: var(--sky); }
-  .stat:nth-child(4) { background: color-mix(in oklab, var(--fern) 60%, var(--paper)); }
-  .stat:nth-child(5) { background: var(--buff); }
-  .stat.big {
-    grid-column: span 2;
-    grid-row: span 2;
-    background: var(--kotare);
-    color: #fff;
-    justify-content: end;
-  }
+  .stat:nth-child(1) { background: var(--kotare); color: #fff; }
+  .stat:nth-child(2) { background: var(--sky); }
+  .stat:nth-child(3) { background: color-mix(in oklab, var(--fern) 60%, var(--paper)); }
   dt {
     order: 2;
     font-weight: 600;
@@ -626,19 +629,15 @@ const latest = stories.slice(0, 3);
     order: 1;
     margin: 0;
     font-family: var(--display);
-    font-size: var(--step-4);
+    font-size: var(--step-5);
     font-weight: 600;
     line-height: 0.95;
     letter-spacing: -0.03em;
     font-variant-numeric: tabular-nums;
   }
-  .stat.big dd { font-size: clamp(4rem, 2rem + 8vw, 10rem); }
-  .stat.big dt { font-size: var(--step-2); font-family: var(--display); font-weight: 500; }
-  .stat.big p { order: 3; opacity: 0.85; }
-  @media (max-width: 60rem) {
-    .stats { grid-template-columns: 1fr 1fr; }
-    .stat { min-height: 10rem; }
-    .stat.big { grid-row: auto; }
+  @media (max-width: 48rem) {
+    .stats { grid-template-columns: 1fr; }
+    .stat { min-height: 9rem; }
   }
 
   /* ----------------------------------------------------------- work */
@@ -929,6 +928,8 @@ const latest = stories.slice(0, 3);
     box-shadow: 0 30px 60px -30px color-mix(in oklab, var(--ink) 40%, transparent);
   }
   .bank-label { font-weight: 600; color: var(--bush); }
+  .ref { font-size: var(--step-1); }
+  .ref strong { font-family: var(--display); letter-spacing: 0.08em; }
   .acct {
     font-family: var(--display);
     font-size: clamp(1.7rem, 1rem + 2.6vw, 2.8rem);

@@ -4,30 +4,31 @@ import Img from "../components/Img.astro";
 import Icon from "../components/Icon.astro";
 
 const uses = [
-  ["Trap lines", "Building, replacing and maintaining the traps and bait stations across nine hubs."],
-  ["Wildlife monitoring", "Bird counts, coastal monitoring and the gear our counters use."],
-  ["Volunteer support", "Training, safety equipment and tools for field days."],
-  ["Local paid trappers", "Employing trappers to reach further across Mahurangi West."],
+  ["Understand", "Bird, bat and coastal monitoring, with the equipment and training our volunteers need."],
+  ["Restore", "Native plants, planting days, weed control, and volunteer tools and safety gear."],
+  ["Protect", "Long-term care of restored areas and our Buffer Zone partnership with Auckland Council."],
 ];
+const account = "06-0483-0894183-00";
 ---
-<Base title="Donate" description="Support predator control and wildlife monitoring in Mahurangi West with a donation.">
+<Base title="Donate" description="Donate to Project Birdsong and help restore native bird habitat across the Mahurangi West peninsula.">
   <section class="page-hero donate-hero">
     <div class="wrap grid">
       <div>
         <p class="eyebrow">Donate</p>
-        <h1>Every dollar keeps a trap working.</h1>
+        <h1>Every dollar helps bring the birdsong back.</h1>
         <p class="lead">
-          Predators like rats, stoats and possums take a heavy toll on native wildlife. Sustained trapping makes safer
-          habitat and healthier bush, wetlands and coast.
+          Your gift pays for native plants, weed control and the monitoring that shows us which birds are returning to
+          Mahurangi West.
         </p>
       </div>
       <div class="bank">
         <p class="bank-label">Bank transfer</p>
         <dl>
           <div><dt>Account name</dt><dd>Mahurangi West Pest Inc</dd></div>
-          <div><dt>Account number</dt><dd class="acct">06-0483-0894183-00</dd></div>
+          <div><dt>Account number</dt><dd class="acct">{account}</dd></div>
+          <div><dt>Reference</dt><dd class="ref">BBB</dd></div>
         </dl>
-        <button class="btn" data-copy="06-0483-0894183-00">
+        <button class="btn" data-copy={account}>
           <span class="c-idle"><Icon name="copy" size={18} /> Copy account number</span>
           <span class="c-done"><Icon name="check" size={18} /> Copied</span>
         </button>
@@ -43,7 +44,7 @@ const uses = [
     <div class="wrap uses-grid">
       <div class="stack" style="--space: 1.4rem">
         <p class="eyebrow reveal">Where it goes</p>
-        <h2 class="reveal">Straight into the field.</h2>
+        <h2 class="reveal">Understand, restore, protect.</h2>
         <ul class="uses reveal-stagger">
           {uses.map(([t, b], i) => (
             <li style={`--i:${i}`}><h3>{t}</h3><p>{b}</p></li>
@@ -51,7 +52,7 @@ const uses = [
         </ul>
       </div>
       <div class="uses-img reveal-scale">
-        <Img name="2025-01-wooden-traps-copy.jpg" alt="Stacks of new wooden trap boxes beside a quad bike" sizes="(min-width: 60rem) 45vw, 100vw" />
+        <Img name="2025-08-volunteers-weeding-1.jpg" alt="Volunteers weeding around young native plants" sizes="(min-width: 60rem) 45vw, 100vw" />
       </div>
     </div>
   </section>
@@ -95,6 +96,7 @@ const uses = [
   dl { margin: 0; display: grid; gap: 0.8rem; }
   dt { font-size: var(--step--1); color: var(--muted); font-weight: 500; }
   dd { margin: 0; font-weight: 600; font-size: var(--step-1); }
+  dd.ref { font-family: var(--display); font-size: var(--step-2); letter-spacing: 0.08em; }
   dd.acct { font-family: var(--display); font-size: clamp(1.7rem, 1rem + 2.6vw, 2.6rem); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
   .receipt { color: var(--ink-2); font-size: var(--step--1); }
   .receipt a { color: var(--kotare-deep); font-weight: 600; overflow-wrap: anywhere; }

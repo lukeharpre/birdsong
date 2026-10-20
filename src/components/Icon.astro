@@ -1,5 +1,5 @@
 ---
-interface Props { name: "arrow" | "menu" | "close" | "copy" | "mail" | "phone" | "pdf" | "external" | "check"; size?: number }
+interface Props { name: "arrow" | "menu" | "close" | "copy" | "mail" | "phone" | "pdf" | "external" | "check" | "leaf"; size?: number }
 const { name, size = 20 } = Astro.props;
 const paths: Record<Props["name"], string> = {
   arrow: "M5 12h14M13 6l6 6-6 6",
@@ -11,6 +11,7 @@ const paths: Record<Props["name"], string> = {
   pdf: "M7 3h7l5 5v13H7zM14 3v5h5M10 14h6M10 17h4",
   external: "M14 4h6v6M20 4l-9 9M18 14v6H4V6h6",
   check: "M5 12l5 5L20 7",
+  leaf: "M5 19C5 11 11 5 19 5c0 8-6 14-14 14zM5 19l7-7",
 };
 ---
 <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">

@@ -4,160 +4,89 @@ import Img from "../components/Img.astro";
 import Icon from "../components/Icon.astro";
 import SongLine from "../components/SongLine.astro";
 
-const predators = [
-  {
-    name: "Mustelids",
-    kinds: "Stoats · ferrets · weasels",
-    body: "Predators of native birds, eggs, lizards and insects. Weasels will take prey much larger than themselves, and nesting birds are easy targets.",
-    colour: "var(--pohutukawa)",
-  },
-  {
-    name: "Possums",
-    kinds: "Brought from Australia in the 1800s",
-    body: "At high numbers their browsing strips the canopy and understorey. They also compete with and eat native wildlife, which never evolved defences against them.",
-    colour: "var(--kotare)",
-  },
-  {
-    name: "Rats",
-    kinds: "Ship rats · Norway rats · kiore",
-    body: "Omnivores that eat birds, eggs, chicks, seeds, snails, lizards, wētā, fruit and flowers. They’re partly responsible for the decline of many native species.",
-    colour: "var(--bush)",
-  },
+const why = [
+  ["Food and shelter", "Native trees and shrubs feed birds and bats with fruit, nectar and insects, and give them somewhere to roost and nest."],
+  ["Weeds smother it", "Climbing asparagus, moth plant, wild ginger and woolly nightshade crowd out young natives and choke the canopy."],
+  ["Restore it and they return", "Clear the weeds and plant natives, and the bush can regrow. As it does, the birdsong comes back."],
 ];
 
-const traps = [
-  { name: "Timms", for: "possums", note: "A bite-sized piece of apple on the movable bar inside." },
-  { name: "Victor", for: "rats", note: "Two types of rodent trap are used across the hubs." },
-  { name: "DOC200", for: "stoats, ferrets and weasels", note: "The Department of Conservation’s humane kill trap." },
-];
-
-const hubs = [
-  ["1", "Ian C"],
-  ["2", "Jeff M (Jamieson) · Lyn L (Opahi)"],
-  ["3", "Hugh K"],
-  ["4", "Mike N"],
-  ["5", null],
-  ["6", "Hugh K"],
-  ["7", "Steph H"],
-  ["8", null],
-  ["9", "Mick C"],
+const restore = [
+  {
+    title: "Planting days",
+    body: "Volunteers plant natives along the coast, from the Jamieson Bay esplanade to Huawai Bay.",
+  },
+  {
+    title: "Huawai Bay reforestation",
+    body: "Clearing invasive weeds and unwanted trees, then replanting with natives. More than 60 people planted about 1,300 natives at one working bee.",
+  },
+  {
+    title: "Morehu whānau land",
+    body: "Pine removal and native planting at Jamieson Bay, supported by a 2021 Rodney Healthy Harbours grant.",
+  },
+  {
+    title: "Roadside planting",
+    body: "Replanting road edges at Opahi Bay and along Mahurangi West roads.",
+  },
+  {
+    title: "Weed cafés",
+    body: "One hour of weeding, mulching and watering young natives, alongside your neighbours.",
+  },
 ];
 ---
-<Base title="Our work" description="Predator control, pest plant clearing, bird counts and coastal monitoring across the Mahurangi West peninsula.">
+<Base title="Our work" description="How Project Birdsong understands, restores and protects native bird habitat across the Mahurangi West peninsula.">
   <section class="page-hero">
     <div class="wrap">
       <p class="eyebrow">Our work</p>
-      <h1>Predator free, one trap line at a time.</h1>
+      <h1>Understand, restore, protect.</h1>
       <p class="lead">
-        Our aim is to rid the Mahurangi West peninsula of pest animals. We target possums, mustelids and rodents, in
-        line with Pest Free Auckland, and clear the weeds that smother native bush.
+        Native bush feeds and shelters the birds of Mahurangi West. We study the birdlife, restore the habitat it
+        depends on and look after what has been restored.
       </p>
       <nav class="jump" aria-label="On this page">
-        <a href="#predators" class="chip">Predators</a>
-        <a href="#traps" class="chip">Traps</a>
-        <a href="#hubs" class="chip">Nine hubs</a>
-        <a href="#birds" class="chip">Bird counts</a>
-        <a href="#coast" class="chip">Coast Guardians</a>
-        <a href="#buffer" class="chip">Pest plants</a>
+        <a href="#why" class="chip">Why habitat matters</a>
+        <a href="#understand" class="chip">Understand</a>
+        <a href="#restore" class="chip">Restore</a>
+        <a href="#protect" class="chip">Protect</a>
       </nav>
     </div>
   </section>
 
-  <!-- predators -->
-  <section id="predators" class="section">
+  <!-- why habitat matters -->
+  <section id="why" class="section why">
     <div class="wrap">
       <div class="section-head reveal">
-        <p class="eyebrow">The three we’re after</p>
-        <h2>Why these predators have to go.</h2>
+        <p class="eyebrow">Why habitat matters</p>
+        <h2>No bush, no birdsong.</h2>
       </div>
-      <ul class="predators reveal-stagger">
-        {predators.map((p, i) => (
-          <li style={`--i:${i}; --c:${p.colour}`}>
-            <span class="no" aria-hidden="true">✕</span>
-            <h3>{p.name}</h3>
-            <p class="kinds">{p.kinds}</p>
-            <p>{p.body}</p>
+      <ol class="why-list reveal-stagger">
+        {why.map(([t, b], i) => (
+          <li style={`--i:${i}`}>
+            <span class="no" aria-hidden="true">{i + 1}</span>
+            <h3>{t}</h3>
+            <p>{b}</p>
           </li>
         ))}
-      </ul>
+      </ol>
     </div>
   </section>
 
-  <!-- traps -->
-  <section id="traps" class="section traps">
-    <div class="wrap traps-grid">
-      <div class="traps-img reveal-scale">
-        <Img name="2022-05-img_20201206_093147-edited-1.jpg" alt="A piece of apple skewered on the bar inside a yellow possum trap" sizes="(min-width: 60rem) 45vw, 100vw" />
-      </div>
-      <div class="stack" style="--space: 1.5rem">
-        <p class="eyebrow reveal">Humane traps</p>
-        <h2 class="reveal">Checked, reset and re-baited by volunteers.</h2>
-        <ol class="trap-list reveal-stagger">
-          {traps.map((t, i) => (
-            <li style={`--i:${i}`}>
-              <strong>{t.name}</strong>
-              <span>for {t.for}</span>
-              <p>{t.note}</p>
-            </li>
-          ))}
-        </ol>
-        <div class="trapnz reveal">
-          <h3>Every catch goes into Trap.NZ</h3>
-          <p>
-            We log trap locations, what was caught and which bait was used. Our data joins thousands of other
-            community projects, building a picture of how Aotearoa is tracking towards Predator Free 2050.
-          </p>
-          <a href="https://trap.nz/" class="link-arrow" rel="noopener">Visit Trap.NZ <Icon name="external" size={16} /></a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- hubs -->
-  <section id="hubs" class="section">
-    <div class="wrap hubs-grid">
-      <div class="stack" style="--space: 1.4rem">
-        <p class="eyebrow reveal">Coverage</p>
-        <h2 class="reveal">Nine hubs, 3,500 hectares.</h2>
-        <p class="lead reveal">
-          With help from Auckland Council’s biodiversity team we split the peninsula into nine hubs. Each has its own
-          volunteers and landowners, looked after by a hub coordinator. Over 80 trapping volunteers work across them.
-        </p>
-        <ul class="hub-list reveal-stagger">
-          {hubs.map(([n, who], i) => (
-            <li style={`--i:${i}`} class:list={{ vacant: !who }}>
-              <span class="hub-n">{n}</span>
-              {who ? <span>{who}</span> : <a href="/contact">Coordinator wanted. Could it be you?</a>}
-            </li>
-          ))}
-        </ul>
-      </div>
-      <figure class="map reveal">
-        <Img name="2025-09-9-hubs_rds_hubs_named.png" alt="Map of Mahurangi West showing the nine coloured trapping hubs" sizes="(min-width: 60rem) 50vw, 100vw" />
-        <figcaption>The Mahurangi West Pest operational area and its nine hubs.</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <!-- birds -->
-  <section id="birds" class="section birds">
+  <!-- understand -->
+  <section id="understand" class="section birds">
     <div class="wrap">
       <div class="birds-grid">
         <div class="stack" style="--space: 1.4rem">
-          <p class="eyebrow reveal">Monitoring</p>
-          <h2 class="reveal">Counting birds tells us if it’s working.</h2>
+          <p class="eyebrow reveal">Understand</p>
+          <h2 class="reveal">Counting birds tells us what’s coming back.</h2>
           <p class="lead reveal">
-            Any group doing pest control needs a benchmark of its birdlife, then regular counts to see whether
-            trapping is making a difference.
+            We have 20 bird monitoring stations across the peninsula. Each season around 20 volunteer counters spend
+            half an hour at each one, recording every bird they see or hear.
           </p>
           <p class="reveal">
-            Our counters were trained in December 2020 by Ngaire Wallen of the Takatu Landcare Group. Each season,
-            around 20 volunteers spend half an hour at each of our 20 stations, recording every bird seen or heard.
+            Our counters were trained in December 2020 by Ngaire Wallen of the Takatu Landcare Group. The counts go to
+            eBird, run by the Cornell Lab of Ornithology, and on to the New Zealand Bird Atlas. They are also recorded
+            in Trap.NZ.
           </p>
-          <p class="reveal">
-            Since autumn 2022 the counts have gone into Trap.NZ, and onto eBird, run by the Cornell Lab of
-            Ornithology, which also feeds the New Zealand Bird Atlas.
-          </p>
+          <a href="/stories/kaka-making-a-comeback-in-mahurangi-west" class="link-arrow reveal">Kākā are back <Icon name="arrow" size={18} /></a>
         </div>
         <div class="birds-media reveal">
           <Img name="2021-02-img_20201215_101035-1.jpg" alt="New bird counters with binoculars at a picnic table by the estuary" sizes="(min-width: 60rem) 40vw, 100vw" />
@@ -165,6 +94,31 @@ const hubs = [
             <SongLine seed={33} height={110} />
           </div>
         </div>
+      </div>
+
+      <div class="understand-more">
+        <article class="flagship reveal">
+          <p class="eyebrow">Flagship species</p>
+          <h3>Matuku-hūrepo</h3>
+          <p class="latin">Australasian bittern</p>
+          <p>
+            A shy wetland bird, more often heard than seen. The matuku-hūrepo is the flagship species for our work.
+          </p>
+        </article>
+        <article class="bats reveal">
+          <div class="bats-img">
+            <Img name="2022-11-brian_batdevice.jpg" alt="Brian Bramell placing an acoustic bat logger on a tree at Te Muri" sizes="(min-width: 60rem) 20vw, 100vw" />
+          </div>
+          <div class="bats-copy">
+            <p class="eyebrow">Pekapeka</p>
+            <h3>Listening for bats</h3>
+            <p>
+              With a grant from Auckland Council we use acoustic listening devices to find pekapeka-tou-roa
+              (long-tailed bats) on the peninsula, so we can help protect them and their roost trees.
+            </p>
+            <a href="/stories/grant-to-find-research-and-protect-our-native-bat" class="link-arrow">Read more <Icon name="arrow" size={18} /></a>
+          </div>
+        </article>
       </div>
     </div>
   </section>
@@ -181,10 +135,31 @@ const hubs = [
         </p>
         <ul class="ticks">
           <li>Record kororā (little blue penguins), nesting shorebirds and other coastal wildlife</li>
-          <li>Note threats like predator activity and human disturbance</li>
+          <li>Note threats such as human disturbance</li>
           <li>Training with Auckland Council community ranger Jared Anderson</li>
         </ul>
         <a href="mailto:mahurangiwestpest@gmail.com?subject=Coast%20Guardians" class="btn light">Register your interest <Icon name="arrow" /></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- restore -->
+  <section id="restore" class="section">
+    <div class="wrap restore-grid">
+      <div class="stack" style="--space: 1.4rem">
+        <p class="eyebrow reveal">Restore</p>
+        <h2 class="reveal">Swapping weeds for natives.</h2>
+        <p class="lead reveal">
+          Volunteers, landowners and whānau clear pest plants and replant with natives, so the bush can regrow.
+        </p>
+        <ul class="projects reveal-stagger">
+          {restore.map((r, i) => (
+            <li style={`--i:${i}`}><h3>{r.title}</h3><p>{r.body}</p></li>
+          ))}
+        </ul>
+      </div>
+      <div class="restore-img reveal-scale">
+        <Img name="2024-05-flaxessteepbank_grantp_petel_peterd.jpg" alt="Volunteers planting flaxes on a steep bank above the bay" sizes="(min-width: 60rem) 40vw, 100vw" />
       </div>
     </div>
   </section>
@@ -196,13 +171,12 @@ const hubs = [
         <p class="eyebrow reveal">Pest plants</p>
         <h2 class="reveal">The Buffer Zone programme.</h2>
         <p class="lead reveal">
-          A park buffer zone is the 500 metres around a park with special ecological values. Properties around
-          Mahurangi Regional Park are in one.
+          The buffer zone is the 500 metres around Mahurangi Regional Park. Pest plants here spread into the park, so
+          they need controlling on the land around it too.
         </p>
         <p class="reveal">
-          Auckland Council controls pest plants inside the park, and they need controlling on the land around it too.
-          Council does the first round on climbing and bushy asparagus; landowners follow up, and deal with woolly
-          nightshade, moth plant and wild ginger themselves. We can help with advice and hands.
+          We help landowners in the zone control climbing asparagus, moth plant, woolly nightshade and wild ginger,
+          with advice and hands.
         </p>
         <div class="cta-row reveal">
           <a href="/pest-plants" class="btn">Pest plant guide <Icon name="arrow" /></a>
@@ -213,6 +187,38 @@ const hubs = [
         <Img name="2022-11-allisonmilne_ginger_aspargusfern.jpg" alt="Wild ginger and climbing asparagus smothering bush" sizes="(min-width: 60rem) 40vw, 100vw" />
         <p class="credit">Wild ginger and climbing asparagus. Photo: Allison Milne</p>
       </div>
+    </div>
+  </section>
+
+  <!-- protect -->
+  <section id="protect" class="section">
+    <div class="wrap protect">
+      <div class="protect-head reveal">
+        <p class="eyebrow">Protect</p>
+        <h2>Looking after what’s been restored.</h2>
+        <p class="lead">
+          Restored bush needs care for years. We work with Auckland Council so the gains last, inside the regional
+          parks and across the private land around them.
+        </p>
+      </div>
+      <ul class="protect-list reveal-stagger">
+        <li style="--i:0">
+          <h3>A three-year partnership</h3>
+          <p>A memorandum of understanding with Auckland Council to restore and protect Mahurangi West and its regional parks.</p>
+        </li>
+        <li style="--i:1">
+          <h3>The Buffer Zone</h3>
+          <p>Working with Auckland Council and landowners to keep pest plants out of Mahurangi Regional Park.</p>
+        </li>
+        <li style="--i:2">
+          <h3>Long-term monitoring</h3>
+          <p>Bird counts and coastal monitoring show how restored areas are doing year after year.</p>
+        </li>
+        <li style="--i:3" class="proof">
+          <strong>16,000+</strong>
+          <p>pest catches since 2019</p>
+        </li>
+      </ul>
     </div>
   </section>
 </Base>
@@ -230,7 +236,7 @@ const hubs = [
   }
   .jump a:hover { background: var(--kowhai); transform: translateY(-2px); }
 
-  .predators {
+  .why-list {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -238,122 +244,113 @@ const hubs = [
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
   }
-  .predators li {
-    position: relative;
+  .why-list li {
     display: grid;
     gap: 0.75rem;
     align-content: start;
     padding: clamp(1.5rem, 3vw, 2.25rem);
     border-radius: var(--radius-lg);
     background: var(--paper-2);
-    overflow: hidden;
   }
-  .predators li::before {
-    content: "";
-    position: absolute;
-    inset: 0 0 auto;
-    height: 6px;
-    background: var(--c);
-  }
+  .why-list li:nth-child(2) { background: var(--sky); }
+  .why-list li:nth-child(3) { background: color-mix(in oklab, var(--fern) 45%, var(--paper)); }
   .no {
     display: grid;
     place-items: center;
     width: 3rem;
     height: 3rem;
     border-radius: 50%;
-    background: var(--c);
-    color: #fff;
-    font-size: 1.2rem;
-    font-weight: 700;
-  }
-  .predators h3 { font-size: var(--step-3); }
-  .kinds { font-weight: 600; color: var(--bush); font-size: var(--step--1); letter-spacing: 0.04em; }
-  .predators p:last-child { color: var(--ink-2); }
-  @media (max-width: 56rem) { .predators { grid-template-columns: 1fr; } }
-
-  .traps { background: var(--sky); border-radius: var(--radius-lg); margin-inline: clamp(0.5rem, 1.5vw, 1.25rem); }
-  .traps-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: clamp(2rem, 6vw, 5rem);
-    align-items: center;
-  }
-  .traps-img { border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 4 / 5; }
-  .traps-img :global(img) { width: 100%; height: 100%; object-fit: cover; }
-  .trap-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    gap: 0.6rem;
-  }
-  .trap-list li {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 0 0.8rem;
-    align-items: baseline;
-    padding: 1rem 1.25rem;
-    background: var(--paper);
-    border-radius: var(--radius);
-  }
-  .trap-list strong { font-family: var(--display); font-size: var(--step-2); }
-  .trap-list span { font-weight: 600; color: var(--kotare-deep); }
-  .trap-list p { grid-column: 1 / -1; color: var(--ink-2); font-size: var(--step--1); }
-  .trapnz { display: grid; gap: 0.6rem; padding-top: 0.5rem; }
-  .trapnz h3 { font-size: var(--step-1); }
-  @media (max-width: 56rem) {
-    .traps-grid { grid-template-columns: 1fr; }
-    .traps-img { aspect-ratio: 16 / 11; }
-  }
-
-  .hubs-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.15fr;
-    gap: clamp(2rem, 5vw, 5rem);
-    align-items: start;
-  }
-  .hub-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.5rem;
-  }
-  .hub-list li {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.6rem 0.9rem 0.6rem 0.6rem;
-    border-radius: 999px;
-    background: var(--paper-2);
-    font-weight: 500;
-    font-size: var(--step--1);
-  }
-  .hub-n {
-    display: grid;
-    place-items: center;
-    flex-shrink: 0;
-    width: 2.1rem;
-    height: 2.1rem;
-    border-radius: 50%;
     background: var(--ink);
     color: var(--paper);
     font-family: var(--display);
     font-weight: 600;
   }
-  .hub-list .vacant { background: var(--kowhai); grid-column: span 2; }
-  .hub-list .vacant .hub-n { background: var(--pohutukawa); }
-  .hub-list .vacant a { font-weight: 600; }
-  .map { margin: 0; position: sticky; top: 6rem; }
-  .map :global(img) { border-radius: var(--radius-lg); box-shadow: 0 30px 60px -30px color-mix(in oklab, var(--ink) 40%, transparent); }
-  .map figcaption { margin-top: 0.8rem; font-size: var(--step--1); color: var(--muted); }
-  @media (max-width: 56rem) {
-    .hubs-grid { grid-template-columns: 1fr; }
-    .map { position: static; }
-    .hub-list { grid-template-columns: 1fr; }
-    .hub-list .vacant { grid-column: auto; }
+  .why-list h3 { font-size: var(--step-2); }
+  .why-list p { color: var(--ink-2); }
+  @media (max-width: 56rem) { .why-list { grid-template-columns: 1fr; } }
+
+  .understand-more {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 1rem;
+    margin-top: clamp(3rem, 6vw, 5rem);
   }
+  .flagship, .bats {
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+    border-radius: var(--radius-lg);
+    background: var(--paper);
+  }
+  .flagship { display: grid; gap: 0.6rem; align-content: start; background: var(--kowhai); }
+  .flagship .eyebrow { color: var(--ink); }
+  .flagship h3 { font-size: var(--step-3); }
+  .latin { font-style: italic; color: var(--ink-2); }
+  .bats { display: grid; grid-template-columns: 0.8fr 1fr; gap: clamp(1rem, 3vw, 2rem); align-items: center; }
+  .bats-img { border-radius: var(--radius); overflow: hidden; aspect-ratio: 4 / 5; }
+  .bats-img :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .bats-copy { display: grid; gap: 0.75rem; justify-items: start; }
+  .bats-copy p:not(.eyebrow) { color: var(--ink-2); }
+  @media (max-width: 56rem) {
+    .understand-more { grid-template-columns: 1fr; }
+    .bats { grid-template-columns: 1fr; }
+    .bats-img { aspect-ratio: 16 / 10; }
+  }
+
+  .restore-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: clamp(2rem, 6vw, 6rem);
+    align-items: start;
+  }
+  .projects { list-style: none; padding: 0; margin: 0; display: grid; }
+  .projects li {
+    display: grid;
+    gap: 0.3rem;
+    padding-block: 1.1rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .projects h3 { font-size: var(--step-1); }
+  .projects p { color: var(--ink-2); }
+  .restore-img { position: sticky; top: 7rem; border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 4 / 5; }
+  .restore-img :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  @media (max-width: 56rem) {
+    .restore-grid { grid-template-columns: 1fr; }
+    .restore-img { position: static; aspect-ratio: 16 / 11; }
+  }
+
+  .protect {
+    display: grid;
+    gap: clamp(2rem, 5vw, 3.5rem);
+    padding: clamp(2rem, 6vw, 5rem);
+    border-radius: var(--radius-lg);
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .protect-head { display: grid; gap: 1.2rem; max-width: 46rem; }
+  .protect .eyebrow { color: var(--kowhai); }
+  .protect .lead { color: color-mix(in oklab, var(--paper) 80%, transparent); }
+  .protect-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+  .protect-list li {
+    display: grid;
+    gap: 0.6rem;
+    align-content: start;
+    padding: 1.5rem;
+    border-radius: var(--radius);
+    background: color-mix(in oklab, var(--paper) 8%, transparent);
+  }
+  .protect-list h3 { font-size: var(--step-1); }
+  .protect-list p { color: color-mix(in oklab, var(--paper) 78%, transparent); }
+  .protect-list .proof { background: var(--kowhai); color: var(--ink); align-content: end; }
+  .proof strong { font-family: var(--display); font-size: var(--step-4); line-height: 1; }
+  .protect-list .proof p { color: var(--ink); font-weight: 600; }
+  @media (max-width: 60rem) { .protect-list { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 36rem) { .protect-list { grid-template-columns: 1fr; } }
 
   .birds { background: color-mix(in oklab, var(--fern) 35%, var(--paper)); }
   .birds-grid {

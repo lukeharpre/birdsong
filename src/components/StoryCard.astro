@@ -1,7 +1,7 @@
 ---
 import Img from "./Img.astro";
 import SongLine from "./SongLine.astro";
-import { date, isPoster, type Post } from "../lib/content";
+import { date, isPoster, tagOf, type Post } from "../lib/content";
 
 interface Props { post: Post; size?: "lg" | "md"; index?: number }
 const { post, size = "md", index = 0 } = Astro.props;
@@ -16,7 +16,7 @@ const { post, size = "md", index = 0 } = Astro.props;
       )}
     </div>
     <div class="body">
-      <time datetime={post.date}>{date(post.date, { day: undefined })}</time>
+      <p class="meta"><span class="tag">{tagOf(post.slug)}</span><time datetime={post.date}>{date(post.date, { day: undefined })}</time></p>
       <h3>{post.title}</h3>
       {size === "lg" && <p>{post.excerpt}</p>}
       <span class="more" aria-hidden="true">Read the story →</span>
@@ -66,11 +66,21 @@ const { post, size = "md", index = 0 } = Astro.props;
     gap: 0.5rem;
     align-content: start;
   }
-  time {
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem;
     font-size: var(--step--1);
     font-weight: 600;
     color: var(--bush);
     letter-spacing: 0.04em;
+  }
+  .tag {
+    padding: 0.1rem 0.6rem;
+    border-radius: 999px;
+    background: var(--paper-2);
+    color: var(--ink);
   }
   h3 {
     font-size: var(--step-1);
@@ -80,7 +90,7 @@ const { post, size = "md", index = 0 } = Astro.props;
   }
   .lg h3 { font-size: var(--step-3); }
   .hit:hover h3 { background-size: 100% 0.35em; }
-  p { color: var(--ink-2); max-width: 36rem; }
+  .body > p:not(.meta) { color: var(--ink-2); max-width: 36rem; }
   .more {
     font-weight: 600;
     font-size: var(--step--1);

@@ -1,8 +1,8 @@
-# Mahurangi Bird Song
+# Project Birdsong
 
 Proof-of-concept redesign of the Mahurangi West Pest website
-(mahurangiwestpest.wordpress.com) as a static site, served by GitHub Pages at
-[presh.nz](https://presh.nz).
+(mahurangiwestpest.wordpress.com) as a static site for Project Birdsong,
+served by GitHub Pages at [presh.nz](https://presh.nz).
 
 ## Deploying
 
@@ -16,7 +16,7 @@ domain.
 | Path | What it is |
 | --- | --- |
 | `content/` | Snapshot of the WordPress site: posts, pages, newsletters, reports and original images |
-| `scripts/fetch-content.mjs` | Re-pulls `content/` from the WordPress.com public API (`npm run fetch`) |
+| `scripts/fetch-content.mjs` | Re-pulls `content/` from the WordPress.com public API, and copies newsletter and report PDFs into `public/files/` (`npm run fetch`) |
 | `scripts/build-images.mjs` | Makes 480/960/1600px WebP copies of every image into `public/media/` |
 | `src/` | Astro pages, components and styles |
 | `.github/workflows/deploy.yml` | Builds with Node 24 and deploys `dist/` to Pages |
@@ -33,6 +33,5 @@ npm run dev      # http://localhost:4321
 
 ## Not done yet
 
-- PDFs (newsletters, annual reports, guides) still link to the WordPress host.
-- Contact and newsletter use email and the existing MailerLite form; nothing dynamic yet.
+- Contact uses email only; the newsletter button still points at the MailerLite preview link.
 - Donations are bank transfer only, as on the current site.

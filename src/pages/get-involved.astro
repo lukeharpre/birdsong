@@ -4,16 +4,23 @@ import Img from "../components/Img.astro";
 import Icon from "../components/Icon.astro";
 
 const roles = [
-  { title: "Trapping", body: "Monitor and maintain pest traps and record catches in Trap.NZ.", colour: "var(--kowhai)" },
-  { title: "Hub coordinator", body: "Support the volunteers in a local hub: coordinate trap servicing, welcome newcomers and be their point of contact.", colour: "var(--sky)" },
-  { title: "Planting and weeding", body: "Help out on native planting and weed control days.", colour: "var(--fern)" },
+  { title: "Planting and weeding", body: "Help out on native planting days, weed cafés and weed control.", colour: "var(--fern)" },
+  { title: "Monitoring and citizen science", body: "Seasonal bird counts, Coast Guardians coastal monitoring and other projects.", colour: "var(--sky)" },
   { title: "Community events", body: "Displays, working bees, fundraising and educational activities.", colour: "var(--buff)" },
   { title: "Admin and comms", body: "Behind-the-scenes organising and communications that keep projects and volunteers going.", colour: "var(--paper-2)" },
-  { title: "Monitoring and citizen science", body: "Bird counts, coastal wildlife monitoring and other conservation projects.", colour: "color-mix(in oklab, var(--pohutukawa) 30%, var(--paper))" },
+  { title: "Business and sponsors", body: "Support the project as a sponsor or partner. Talk to us about what suits your business.", colour: "var(--kowhai)" },
+  { title: "Fundraise for us", body: "Run your own event or challenge and raise money for Project Birdsong.", colour: "color-mix(in oklab, var(--pohutukawa) 30%, var(--paper))" },
+];
+
+const audiences = [
+  ["Individuals", "Give an hour, a season or more. No experience needed."],
+  ["Families", "Come along to a planting day together."],
+  ["Businesses", "Sponsor a project or back an event."],
+  ["Community groups", "Bring your group along to a working bee."],
 ];
 
 const why = [
-  "Protect native birds, wildlife and forest",
+  "Help bring native birds back to the peninsula",
   "Help restore the Mahurangi West peninsula",
   "Get practical conservation experience and training",
   "Meet people who care about the same things",
@@ -21,7 +28,7 @@ const why = [
   "Build experience for your CV, with references where appropriate",
 ];
 ---
-<Base title="Get involved" description="Volunteer with Mahurangi Bird Song: trapping, planting, bird counts, events and more. No experience needed.">
+<Base title="Get involved" description="Volunteer with Project Birdsong: planting, weeding, bird counts, events and more. No experience needed.">
   <section class="page-hero">
     <div class="wrap hero-grid">
       <div>
@@ -33,20 +40,28 @@ const why = [
         </p>
         <div class="cta">
           <a href="/contact" class="btn">Join the team <Icon name="arrow" /></a>
-          <a href="#vacancies" class="btn ghost">Current vacancies</a>
+          <a href="#half-hour" class="btn ghost">Got half an hour?</a>
         </div>
       </div>
       <div class="hero-photos">
-        <Img name="2025-01-mike-n_mick.jpg" alt="Two volunteers unloading traps from a ute" sizes="(min-width: 60rem) 22vw, 50vw" eager class="p1" />
+        <Img name="2025-03-digging_planting.jpg" alt="Volunteers planting natives along a roadside bank" sizes="(min-width: 60rem) 22vw, 50vw" eager class="p1" />
         <Img name="2026-06-1000034899-1.jpg" alt="Volunteers gathered at Huawai Bay" sizes="(min-width: 60rem) 22vw, 50vw" eager class="p2" />
       </div>
     </div>
   </section>
 
+  <section class="section-sm audiences">
+    <ul class="wrap aud reveal-stagger">
+      {audiences.map(([who, line], i) => (
+        <li style={`--i:${i}`}><strong>{who}</strong><span>{line}</span></li>
+      ))}
+    </ul>
+  </section>
+
   <section class="section">
     <div class="wrap">
       <div class="section-head reveal">
-        <p class="eyebrow">Volunteer roles</p>
+        <p class="eyebrow">Ways to help</p>
         <h2>Pick what suits you.</h2>
       </div>
       <ul class="roles reveal-stagger">
@@ -61,28 +76,29 @@ const why = [
     </div>
   </section>
 
-  <section id="vacancies" class="section vacancies">
-    <div class="wrap vac-grid">
+  <section id="half-hour" class="section micro">
+    <div class="wrap micro-grid">
       <div class="stack reveal" style="--space: 1.3rem">
-        <p class="eyebrow">Current vacancies</p>
-        <h2>Two hubs need a coordinator.</h2>
+        <p class="eyebrow">Micro-volunteering</p>
+        <h2>Got half an hour?</h2>
         <p class="lead">
-          Hub coordinators organise trap servicing in their area, welcome new volunteers and are the local point of
-          contact.
+          Many hands make light work. Small, regular contributions keep our projects going without anyone feeling
+          overloaded.
         </p>
         <a href="/contact" class="btn sun">Put your hand up <Icon name="arrow" /></a>
       </div>
-      <div class="vac-cards reveal-stagger">
-        <a href="/our-work#hubs" style="--i:0"><span>Hub</span><strong>5</strong><em>South Mahurangi West</em></a>
-        <a href="/our-work#hubs" style="--i:1"><span>Hub</span><strong>8</strong><em>Pukapuka West</em></a>
-      </div>
+      <ul class="tasks reveal-stagger">
+        <li style="--i:0"><span class="time">30 min</span><div><h3>Count birds</h3><p>Half an hour at your station, once a season.</p></div></li>
+        <li style="--i:1"><span class="time">1 hour</span><div><h3>Join a weed café</h3><p>Weeding, mulching and watering young natives.</p></div></li>
+        <li style="--i:2"><span class="time"><Icon name="leaf" size={22} /></span><div><h3>Join a planting day</h3><p>Help plant natives, from the Jamieson Bay esplanade to Huawai Bay.</p></div></li>
+      </ul>
     </div>
   </section>
 
   <section class="section">
     <div class="wrap why-grid">
       <div class="why-img reveal-scale">
-        <Img name="2026-05-img_1464.jpg" alt="Volunteers and families sharing food at a picnic table outside a shed" sizes="(min-width: 60rem) 45vw, 100vw" />
+        <Img name="2024-05-bbq-time_planters-break.jpg" alt="Volunteers taking a barbecue break at the Jamieson Bay planting bee" sizes="(min-width: 60rem) 45vw, 100vw" />
       </div>
       <div class="stack" style="--space: 1.4rem">
         <p class="eyebrow reveal">Why volunteer</p>
@@ -97,10 +113,13 @@ const why = [
     </div>
   </section>
 
-  <section class="join">
+  <section id="newsletter" class="join">
     <div class="wrap join-inner reveal">
-      <h2>Together we can make Mahurangi West pest free for generations to come.</h2>
-      <a href="/contact" class="btn sun">Get in touch <Icon name="arrow" /></a>
+      <h2>Together we can bring the birdsong back to Mahurangi West.</h2>
+      <div class="join-cta">
+        <a href="/contact" class="btn sun">Get in touch <Icon name="arrow" /></a>
+        <a href="https://preview.mailerlite.io/forms/2346067/193744657051551642/share" class="btn ghost" rel="noopener">Join our newsletter</a>
+      </div>
     </div>
   </section>
 </Base>
@@ -175,39 +194,67 @@ const why = [
   @media (max-width: 60rem) { .roles { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 38rem) { .roles { grid-template-columns: 1fr; } .roles li { min-height: 0; } }
 
-  .vacancies {
+  .section-sm { padding-block: clamp(1.5rem, 4vw, 3rem); }
+  .aud {
+    list-style: none;
+    padding: 0;
+    margin-block: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+  .aud li {
+    display: grid;
+    gap: 0.35rem;
+    padding: 1.25rem 1.4rem;
+    border-radius: var(--radius);
+    box-shadow: inset 0 0 0 1.5px var(--line);
+  }
+  .aud strong { font-family: var(--display); font-size: var(--step-1); }
+  .aud span { color: var(--ink-2); font-size: var(--step--1); }
+  @media (max-width: 60rem) { .aud { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 34rem) { .aud { grid-template-columns: 1fr; } }
+
+  .micro {
     background: var(--ink);
     color: var(--paper);
     border-radius: var(--radius-lg);
     margin-inline: clamp(0.5rem, 1.5vw, 1.25rem);
   }
-  .vacancies .eyebrow { color: var(--kowhai); }
-  .vacancies .lead { color: color-mix(in oklab, var(--paper) 78%, transparent); }
-  .vac-grid {
+  .micro .eyebrow { color: var(--kowhai); }
+  .micro .lead { color: color-mix(in oklab, var(--paper) 78%, transparent); }
+  .micro-grid {
     display: grid;
-    grid-template-columns: 1.1fr 1fr;
+    grid-template-columns: 1fr 1.1fr;
     gap: clamp(2rem, 5vw, 5rem);
     align-items: center;
   }
-  .vac-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-  .vac-cards a {
-    display: grid;
-    gap: 0.2rem;
-    padding: 1.5rem;
-    border-radius: var(--radius-lg);
-    background: var(--kowhai);
+  .tasks { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.8rem; }
+  .tasks li {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1.1rem 1.25rem;
+    border-radius: var(--radius);
+    background: var(--paper);
     color: var(--ink);
-    text-decoration: none;
-    aspect-ratio: 4 / 5;
-    align-content: end;
-    transition: transform 0.5s var(--ease-spring), background-color 0.3s;
   }
-  .vac-cards a:nth-child(2) { background: var(--sky); }
-  .vac-cards a:hover { transform: translateY(-6px) rotate(1deg); }
-  .vac-cards span { font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; font-size: var(--step--1); }
-  .vac-cards strong { font-family: var(--display); font-size: clamp(4rem, 3rem + 5vw, 8rem); line-height: 0.9; }
-  .vac-cards em { font-style: normal; font-weight: 500; }
-  @media (max-width: 56rem) { .vac-grid { grid-template-columns: 1fr; } .vac-cards a { aspect-ratio: auto; min-height: 11rem; } }
+  .time {
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    width: 5rem;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--kowhai);
+    font-family: var(--display);
+    font-weight: 600;
+    text-align: center;
+    line-height: 1.1;
+  }
+  .tasks h3 { font-size: var(--step-1); }
+  .tasks p { color: var(--ink-2); margin-top: 0.2rem; }
+  @media (max-width: 56rem) { .micro-grid { grid-template-columns: 1fr; } }
 
   .why-grid {
     display: grid;
@@ -233,7 +280,7 @@ const why = [
   .join-inner {
     display: grid;
     justify-items: start;
-    gap: 2rem;
+    gap: 1.5rem;
     padding: clamp(2rem, 6vw, 5rem);
     border-radius: var(--radius-lg);
     background:
@@ -241,4 +288,5 @@ const why = [
       var(--sky);
   }
   .join h2 { font-size: var(--step-4); max-width: 20ch; }
+  .join-cta { display: flex; flex-wrap: wrap; gap: 0.75rem; }
 </style>

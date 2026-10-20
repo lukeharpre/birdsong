@@ -1,70 +1,38 @@
 ---
 import Base from "../layouts/Base.astro";
-import Img from "../components/Img.astro";
 import Icon from "../components/Icon.astro";
 import { newsletters, reports } from "../lib/content";
 
+// Headlines about trapping and predators stay in the PDFs but aren't listed.
+const offTopic = /trap|possum|stoat|ferret|weasel|mustelid|\brats?\b|rodent|bait|lure|predator|hub|kiwi|myna|\bcats?\b|cat-|feral|wasp|killer|pest (stats|control)|now listed pest/i;
 const issues = newsletters.map((n) => ({
   ...n,
   title: n.title.replace(/\s*eNews$/, ""),
-  topics: n.topics.slice(0, 8),
+  topics: n.topics.filter((t) => !offTopic.test(t)).slice(0, 6),
 }));
 const years = [...new Set(issues.map((n) => n.title.slice(-4)))];
-
-const guides = [
-  {
-    title: "Blaze for possums and rats",
-    body: "Make your own flour blaze to lure possums and rats, from a simple three-ingredient recipe.",
-    pdf: "https://mahurangiwestpest.wordpress.com/wp-content/uploads/2024/11/flour-blaze-recipe.pdf",
-    img: "2024-11-camspeedy_flourblazing.jpg",
-  },
-  {
-    title: "Myna control with Pestoff",
-    body: "Six steps that matter, including pre-feeding, preparing a lure and timing.",
-    pdf: "https://mahurangiwestpest.wordpress.com/wp-content/uploads/2024/11/myna-pestoff-steps.pdf",
-    img: "2024-11-moecc-myna.jpg",
-    extra: { label: "Live-capture steps", pdf: "https://mahurangiwestpest.wordpress.com/wp-content/uploads/2024/12/myna_live-capture-steps.pdf" },
-  },
-  {
-    title: "Five tips for cleaning traps",
-    body: "Traps get grungy and stop working well without some love and attention. From Predator Free NZ.",
-    pdf: "https://mahurangiwestpest.wordpress.com/wp-content/uploads/2024/11/cleaning-traps.pdf",
-    img: "2024-11-cleaningtrap-1.png",
-  },
-];
 ---
-<Base title="Resources" description="Newsletters, annual reports and how-to guides from Mahurangi Bird Song.">
+<Base title="Resources" description="Annual reports, every monthly eNews and the pest plant guide from Project Birdsong.">
   <section class="page-hero">
     <div class="wrap">
       <p class="eyebrow">Resources</p>
-      <h1>Guides, reports and every newsletter.</h1>
+      <h1>Reports, guides and every newsletter.</h1>
       <nav class="jump" aria-label="On this page">
-        <a href="#guides" class="chip">How-to guides</a>
+        <a href="#guides" class="chip">Guides</a>
         <a href="#reports" class="chip">Annual reports</a>
         <a href="#newsletters" class="chip">Newsletters</a>
       </nav>
     </div>
   </section>
 
-  <section id="guides" class="section guides-sec">
+  <section id="guides" class="section-sm">
     <div class="wrap">
-      <div class="section-head reveal">
-        <p class="eyebrow">Pest control 101</p>
-        <h2>How-to guides.</h2>
-      </div>
-      <ul class="guides reveal-stagger">
-        {guides.map((g, i) => (
-          <li style={`--i:${i}`}>
-            <div class="g-img"><Img name={g.img} alt="" sizes="(min-width: 60rem) 30vw, 100vw" /></div>
-            <h3>{g.title}</h3>
-            <p>{g.body}</p>
-            <div class="g-links">
-              <a href={g.pdf} class="pdf"><Icon name="pdf" size={18} /> Download PDF</a>
-              {g.extra && <a href={g.extra.pdf} class="pdf"><Icon name="pdf" size={18} /> {g.extra.label}</a>}
-            </div>
-          </li>
-        ))}
-      </ul>
+      <a href="/pest-plants" class="guide reveal">
+        <span class="g-label">Field guide</span>
+        <span class="g-title">Pest plants and how to beat them</span>
+        <span class="g-body">How to recognise the weeds smothering native bush in Mahurangi West, and how to get rid of them.</span>
+        <span class="link-arrow">Open the guide <Icon name="arrow" size={18} /></span>
+      </a>
     </div>
   </section>
 
@@ -94,7 +62,7 @@ const guides = [
       <div class="news-intro stack" style="--space: 1.3rem">
         <p class="eyebrow">Newsletters</p>
         <h2>{issues.length} issues of the monthly eNews.</h2>
-        <p class="lead">Our work on pests and biodiversity, Trap.NZ results, events, volunteer stories and ways to help.</p>
+        <p class="lead">Planting days, bird counts, events, volunteer stories and ways to help.</p>
         <a class="btn sun" href="https://preview.mailerlite.io/forms/2346067/193744657051551642/share" rel="noopener">Subscribe <Icon name="arrow" /></a>
       </div>
       <div class="years">
@@ -124,44 +92,21 @@ const guides = [
   .jump a { text-decoration: none; transition: background-color 0.25s; }
   .jump a:hover { background: var(--kowhai); }
 
-  .guides {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  .section-sm { padding-block: clamp(2rem, 5vw, 4rem); }
+  .guide {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.25rem;
-  }
-  .guides li {
-    display: grid;
-    grid-template-rows: auto auto 1fr auto;
-    gap: 0.75rem;
-    padding: 1rem 1rem 1.5rem;
+    gap: 0.6rem;
+    justify-items: start;
+    padding: clamp(1.5rem, 4vw, 3rem);
     border-radius: var(--radius-lg);
-    background: var(--paper-2);
-  }
-  .g-img { aspect-ratio: 16 / 10; border-radius: var(--radius); overflow: hidden; background: #fff; }
-  .g-img :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--ease-out); }
-  .guides li:hover .g-img :global(img) { transform: scale(1.05); }
-  .guides h3, .guides p, .g-links { padding-inline: 0.5rem; }
-  .guides h3 { font-size: var(--step-2); }
-  .guides p { color: var(--ink-2); }
-  .g-links { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-  .pdf {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.55rem 0.95rem;
-    border-radius: 999px;
-    background: var(--ink);
-    color: var(--paper);
-    font-weight: 600;
-    font-size: var(--step--1);
+    background: color-mix(in oklab, var(--fern) 45%, var(--paper));
     text-decoration: none;
-    transition: background-color 0.25s, transform 0.35s var(--ease-spring);
+    transition: transform 0.5s var(--ease-spring);
   }
-  .pdf:hover { background: var(--kotare); transform: translateY(-2px); }
-  @media (max-width: 60rem) { .guides { grid-template-columns: 1fr; } }
+  .guide:hover { transform: translateY(-4px); }
+  .g-label { font-weight: 600; font-size: var(--step--1); text-transform: uppercase; letter-spacing: 0.12em; color: var(--bush); }
+  .g-title { font-family: var(--display); font-size: var(--step-3); font-weight: 600; line-height: 1.1; }
+  .g-body { color: var(--ink-2); max-width: 40rem; }
 
   .reports-sec { background: var(--sky); border-radius: var(--radius-lg); margin-inline: clamp(0.5rem, 1.5vw, 1.25rem); }
   .reports {
@@ -169,7 +114,7 @@ const guides = [
     padding: 0;
     margin: 0;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(min(12rem, 100%), 1fr));
     gap: 1rem;
   }
   .reports a {
@@ -187,7 +132,7 @@ const guides = [
   }
   .reports li:nth-child(2) a { box-shadow: inset 10px 0 0 var(--bush), 0 24px 40px -28px color-mix(in oklab, var(--ink) 50%, transparent); }
   .reports li:nth-child(3) a { box-shadow: inset 10px 0 0 var(--pohutukawa), 0 24px 40px -28px color-mix(in oklab, var(--ink) 50%, transparent); }
-  .reports li:nth-child(4) a { box-shadow: inset 10px 0 0 var(--kowhai), 0 24px 40px -28px color-mix(in oklab, var(--ink) 50%, transparent); }
+  .reports li:nth-child(4) a, .reports li:nth-child(5) a { box-shadow: inset 10px 0 0 var(--kowhai), 0 24px 40px -28px color-mix(in oklab, var(--ink) 50%, transparent); }
   .reports a:hover { transform: perspective(800px) rotateY(-12deg); }
   .r-label { font-weight: 600; font-size: var(--step--1); text-transform: uppercase; letter-spacing: 0.12em; color: var(--bush); padding-left: 0.5rem; }
   .r-year { font-family: var(--display); font-size: var(--step-4); font-weight: 600; line-height: 1; padding-left: 0.5rem; }

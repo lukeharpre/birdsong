@@ -1,17 +1,18 @@
 ---
 import Base from "../../layouts/Base.astro";
 import StoryCard from "../../components/StoryCard.astro";
-import { stories } from "../../lib/content";
+import { stories, pinned } from "../../lib/content";
 
-const [lead, ...rest] = stories;
+const [lead, ...others] = pinned;
+const rest = stories.filter((p) => !pinned.includes(p));
 const years = [...new Set(rest.map((p) => p.date.slice(0, 4)))];
 ---
-<Base title="Stories" description="News from the trap lines: volunteer days, bird counts, events and milestones.">
+<Base title="Stories" description="News from Project Birdsong: planting days, bird counts, partnerships and milestones.">
   <section class="page-hero">
     <div class="wrap">
       <p class="eyebrow">Stories</p>
-      <h1>News from the trap lines.</h1>
-      <p class="lead">Volunteer days, bird counts, events and milestones since 2021.</p>
+      <h1>News from the bush.</h1>
+      <p class="lead">Planting days, bird counts, partnerships and milestones since 2021.</p>
       <nav class="years" aria-label="Jump to year">
         {years.map((y) => <a href={`#y${y}`} class="chip">{y}</a>)}
       </nav>
@@ -20,6 +21,9 @@ const years = [...new Set(rest.map((p) => p.date.slice(0, 4)))];
 
   <section class="wrap lead-story">
     <StoryCard post={lead} size="lg" />
+    <div class="pinned-side">
+      {others.map((p, i) => <StoryCard post={p} index={i + 1} />)}
+    </div>
   </section>
 
   {years.map((y) => (
@@ -37,13 +41,16 @@ const years = [...new Set(rest.map((p) => p.date.slice(0, 4)))];
   .years { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 2rem; }
   .years a { text-decoration: none; transition: background-color 0.25s; }
   .years a:hover { background: var(--kowhai); }
-  .lead-story { margin-bottom: clamp(3rem, 8vw, 6rem); }
-  .lead-story :global(.hit) {
+  .lead-story {
+    display: grid;
     grid-template-columns: 1.3fr 1fr;
-    align-items: center;
-    gap: clamp(1.5rem, 4vw, 4rem);
+    gap: clamp(1.5rem, 3vw, 3rem);
+    margin-bottom: clamp(3rem, 8vw, 6rem);
   }
-  @media (max-width: 52rem) { .lead-story :global(.hit) { grid-template-columns: 1fr; } }
+  .pinned-side { display: grid; align-content: start; gap: clamp(1.5rem, 3vw, 2.5rem); }
+  .pinned-side :global(.hit) { grid-template-columns: 0.9fr 1fr; align-items: center; }
+  @media (max-width: 60rem) { .lead-story { grid-template-columns: 1fr; } }
+  @media (max-width: 34rem) { .pinned-side :global(.hit) { grid-template-columns: 1fr; } }
   .year { margin-bottom: clamp(3rem, 7vw, 5rem); }
   .year-h {
     position: sticky;

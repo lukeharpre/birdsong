@@ -1,0 +1,47 @@
+---
+import Icon from "./Icon.astro";
+import type { Campaign } from "../lib/campaign";
+
+type Props = Campaign;
+const { eyebrow, title, body, when, where, cta, href } = Astro.props;
+---
+<section class="campaign" aria-labelledby="campaign-h">
+  <div class="wrap">
+    <div class="inner reveal">
+      <div class="copy">
+        <p class="eyebrow">{eyebrow}</p>
+        <h2 id="campaign-h">{title}</h2>
+        <p class="lead">{body}</p>
+        {(when || where) && (
+          <p class="details">
+            {when && <span>{when}</span>}
+            {where && <span>{where}</span>}
+          </p>
+        )}
+      </div>
+      <a href={href} class="btn sun">{cta} <Icon name="arrow" /></a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .campaign { padding-block: clamp(1rem, 3vw, 2rem) clamp(3rem, 7vw, 5rem); }
+  .inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: clamp(2rem, 5vw, 4rem);
+    border-radius: var(--radius-lg);
+    color: var(--paper);
+    background:
+      radial-gradient(30rem 20rem at 100% 0%, color-mix(in oklab, var(--pohutukawa) 55%, transparent), transparent 70%),
+      var(--ink);
+  }
+  .copy { display: grid; gap: 1rem; max-width: 44rem; }
+  .eyebrow { color: var(--kowhai); }
+  h2 { font-size: var(--step-4); }
+  .lead { color: color-mix(in oklab, var(--paper) 85%, transparent); }
+  .details { display: flex; flex-wrap: wrap; gap: 0.4rem 1.5rem; font-weight: 600; }
+</style>

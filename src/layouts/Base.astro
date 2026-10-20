@@ -6,9 +6,9 @@ import Footer from "../components/Footer.astro";
 interface Props { title?: string; description?: string }
 const {
   title,
-  description = "Volunteers restoring native birds, bats and bush across the Mahurangi West peninsula, Aotearoa.",
+  description = "Project Birdsong, run by Mahurangi West Pest, restores native bird habitat across 3,500 hectares of the Mahurangi West peninsula, Aotearoa.",
 } = Astro.props;
-const fullTitle = title ? `${title} · Mahurangi Bird Song` : "Mahurangi Bird Song · Bringing the birdsong back";
+const fullTitle = title ? `${title} · Project Birdsong` : "Project Birdsong · Bringing the birdsong back to Mahurangi West";
 ---
 <!doctype html>
 <html lang="en-NZ">

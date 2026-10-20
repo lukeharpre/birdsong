@@ -2,33 +2,47 @@
 import Logo from "./Logo.astro";
 import Icon from "./Icon.astro";
 
+const pillars = [
+  { href: "/our-work#understand", label: "Understand" },
+  { href: "/our-work#restore", label: "Restore" },
+  { href: "/our-work#protect", label: "Protect" },
+];
 const nav = [
-  { href: "/our-work", label: "Our work" },
-  { href: "/stories", label: "Stories" },
+  { href: "/", label: "Home" },
+  { href: "/our-work", label: "Our work", sub: pillars },
   { href: "/get-involved", label: "Get involved" },
+  { href: "/stories", label: "Stories" },
   { href: "/about", label: "About" },
-  { href: "/resources", label: "Resources" },
 ];
 const path = Astro.url.pathname;
-const current = (href: string) => path === href || path.startsWith(href + "/");
+const current = (href: string) =>
+  href === "/" ? path === "/" : path === href || path.startsWith(href + "/");
 ---
 <header class="site-header">
   <div class="bar wrap">
-    <a href="/" class="brand" aria-label="Mahurangi Bird Song, home">
+    <a href="/" class="brand" aria-label="Project Birdsong, home">
       <Logo size={46} />
-      <span class="name">Mahurangi<br /><em>Bird Song</em></span>
+      <span class="name">Project<br /><em>Birdsong</em></span>
     </a>
 
     <nav aria-label="Main" class="desktop">
       <ul>
         {nav.map((n) => (
-          <li><a href={n.href} aria-current={current(n.href) ? "page" : undefined}>{n.label}</a></li>
+          <li class:list={{ has: n.sub }}>
+            <a href={n.href} aria-current={current(n.href) ? "page" : undefined}>{n.label}</a>
+            {n.sub && (
+              <ul class="sub">
+                {n.sub.map((s) => <li><a href={s.href}>{s.label}</a></li>)}
+              </ul>
+            )}
+          </li>
         ))}
       </ul>
     </nav>
 
     <div class="actions">
       <a href="/contact" class="contact" aria-current={current("/contact") ? "page" : undefined}>Contact</a>
+      <a href="/get-involved" class="btn ghost volunteer">Volunteer</a>
       <a href="/donate" class="btn sun donate">Donate</a>
       <button class="menu-btn" popovertarget="menu" aria-label="Open menu">
         <Icon name="menu" size={24} />
@@ -38,19 +52,29 @@ const current = (href: string) => path === href || path.startsWith(href + "/");
 
   <div id="menu" popover>
     <div class="menu-top">
-      <a href="/" class="brand" aria-label="Mahurangi Bird Song, home"><Logo size={42} /></a>
+      <a href="/" class="brand" aria-label="Project Birdsong, home"><Logo size={42} /></a>
       <button popovertarget="menu" popovertargetaction="hide" class="menu-btn" aria-label="Close menu">
         <Icon name="close" size={24} />
       </button>
     </div>
     <nav aria-label="Mobile">
       <ul>
-        {[{ href: "/", label: "Home" }, ...nav, { href: "/contact", label: "Contact" }].map((n, i) => (
-          <li style={`--i:${i}`}><a href={n.href} aria-current={(n.href === "/" ? path === "/" : current(n.href)) ? "page" : undefined}>{n.label}</a></li>
+        {[...nav, { href: "/contact", label: "Contact" }].map((n, i) => (
+          <li style={`--i:${i}`}>
+            <a href={n.href} aria-current={current(n.href) ? "page" : undefined}>{n.label}</a>
+            {"sub" in n && n.sub && (
+              <ul class="menu-sub">
+                {n.sub.map((s) => <li><a href={s.href}>{s.label}</a></li>)}
+              </ul>
+            )}
+          </li>
         ))}
       </ul>
     </nav>
-    <a href="/donate" class="btn sun menu-donate">Donate to the project <Icon name="arrow" /></a>
+    <div class="menu-cta">
+      <a href="/donate" class="btn sun">Donate <Icon name="arrow" /></a>
+      <a href="/get-involved" class="btn">Volunteer <Icon name="arrow" /></a>
+    </div>
   </div>
 </header>
 
@@ -118,7 +142,7 @@ const current = (href: string) => path === href || path.startsWith(href + "/");
     color: var(--kotare);
   }
 
-  .desktop ul {
+  .desktop > ul {
     display: flex;
     gap: 0.25rem;
     list-style: none;
@@ -151,12 +175,48 @@ const current = (href: string) => path === href || path.startsWith(href + "/");
     text-decoration: underline;
   }
 
+  /* Our work: Understand, Restore, Protect drop down on hover or focus. */
+  .desktop li { position: relative; }
+  .sub {
+    list-style: none;
+    margin: 0;
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 50%;
+    translate: -50% 0;
+    display: grid;
+    gap: 0.15rem;
+    min-width: 11rem;
+    padding: 0.4rem;
+    border-radius: 1.2rem;
+    background: var(--paper);
+    box-shadow: 0 0 0 1px var(--line), 0 20px 40px -20px color-mix(in oklab, var(--ink) 45%, transparent);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-0.4rem);
+    transition: opacity 0.2s, transform 0.3s var(--ease-out), visibility 0.2s;
+  }
+  .sub::before {
+    content: "";
+    position: absolute;
+    inset: -0.6rem 0 auto;
+    height: 0.6rem;
+  }
+  .has:hover .sub,
+  .has:focus-within .sub {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+  .desktop .sub a { border-radius: 0.8rem; }
+
   .actions {
     display: flex;
     align-items: center;
     gap: 0.5rem;
   }
-  .donate {
+  .donate,
+  .volunteer {
     padding: 0.75rem 1.3rem;
   }
 
@@ -172,17 +232,19 @@ const current = (href: string) => path === href || path.startsWith(href + "/");
     cursor: pointer;
   }
 
+  @media (max-width: 72rem) {
+    .contact { display: none; }
+  }
   @media (max-width: 64rem) {
-    .desktop,
-    .contact {
+    .desktop {
       display: none;
     }
     .menu-btn {
       display: grid;
     }
   }
-  @media (max-width: 26rem) {
-    .donate { display: none; }
+  @media (max-width: 34rem) {
+    .volunteer { display: none; }
   }
 
   /* Mobile menu: native popover with entry and exit transitions. */
@@ -259,7 +321,22 @@ const current = (href: string) => path === href || path.startsWith(href + "/");
     font-style: italic;
     color: var(--kotare-deep);
   }
-  .menu-donate {
-    justify-content: center;
+  .menu-sub {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1.2rem;
+    padding-bottom: 0.4rem;
   }
+  #menu .menu-sub a {
+    font-family: var(--body);
+    font-size: var(--step-0);
+    font-weight: 600;
+    color: var(--kotare-deep);
+  }
+  .menu-cta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+  }
+  .menu-cta .btn { justify-content: center; }
 </style>
