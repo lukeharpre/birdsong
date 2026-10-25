@@ -90,7 +90,7 @@ const years = [...new Set(issues.map((n) => n.title.slice(-4)))];
 <style>
   .jump { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 2rem; }
   .jump a { text-decoration: none; transition: background-color 0.25s; }
-  .jump a:hover { background: var(--kowhai); }
+  .jump a:hover { background: var(--green-tint); }
 
   .section-sm { padding-block: clamp(2rem, 5vw, 4rem); }
   .guide {
@@ -99,16 +99,16 @@ const years = [...new Set(issues.map((n) => n.title.slice(-4)))];
     justify-items: start;
     padding: clamp(1.5rem, 4vw, 3rem);
     border-radius: var(--radius-lg);
-    background: color-mix(in oklab, var(--fern) 45%, var(--paper));
+    background: color-mix(in oklab, var(--green-tint) 45%, var(--paper));
     text-decoration: none;
     transition: transform 0.5s var(--ease-spring);
   }
   .guide:hover { transform: translateY(-4px); }
-  .g-label { font-weight: 600; font-size: var(--step--1); text-transform: uppercase; letter-spacing: 0.12em; color: var(--bush); }
+  .g-label { font-weight: 600; font-size: var(--step--1); text-transform: uppercase; letter-spacing: 0.12em; color: var(--green); }
   .g-title { font-family: var(--display); font-size: var(--step-3); font-weight: 600; line-height: 1.1; }
   .g-body { color: var(--ink-2); max-width: 40rem; }
 
-  .reports-sec { background: var(--sky); border-radius: var(--radius-lg); margin-inline: clamp(0.5rem, 1.5vw, 1.25rem); }
+  .reports-sec { background: var(--blue-tint); border-radius: var(--radius-lg); margin-inline: clamp(0.5rem, 1.5vw, 1.25rem); }
   .reports {
     list-style: none;
     padding: 0;
@@ -126,15 +126,15 @@ const years = [...new Set(issues.map((n) => n.title.slice(-4)))];
     border-radius: 0.5rem var(--radius-lg) var(--radius-lg) 0.5rem;
     background: var(--paper);
     text-decoration: none;
-    box-shadow: inset 10px 0 0 var(--kotare), 0 24px 40px -28px color-mix(in oklab, var(--ink) 50%, transparent);
+    box-shadow: inset 10px 0 0 var(--blue), 0 24px 40px -28px color-mix(in oklab, var(--ink) 50%, transparent);
     transition: transform 0.5s var(--ease-spring);
     transform-origin: 0 50%;
   }
-  .reports li:nth-child(2) a { box-shadow: inset 10px 0 0 var(--bush), 0 24px 40px -28px color-mix(in oklab, var(--ink) 50%, transparent); }
-  .reports li:nth-child(3) a { box-shadow: inset 10px 0 0 var(--pohutukawa), 0 24px 40px -28px color-mix(in oklab, var(--ink) 50%, transparent); }
-  .reports li:nth-child(4) a, .reports li:nth-child(5) a { box-shadow: inset 10px 0 0 var(--kowhai), 0 24px 40px -28px color-mix(in oklab, var(--ink) 50%, transparent); }
+  .reports li:nth-child(2) a { box-shadow: inset 10px 0 0 var(--green), 0 24px 40px -28px color-mix(in oklab, var(--ink) 50%, transparent); }
+  .reports li:nth-child(3) a { box-shadow: inset 10px 0 0 var(--navy), 0 24px 40px -28px color-mix(in oklab, var(--ink) 50%, transparent); }
+  .reports li:nth-child(4) a, .reports li:nth-child(5) a { box-shadow: inset 10px 0 0 var(--green-deep), 0 24px 40px -28px color-mix(in oklab, var(--ink) 50%, transparent); }
   .reports a:hover { transform: perspective(800px) rotateY(-12deg); }
-  .r-label { font-weight: 600; font-size: var(--step--1); text-transform: uppercase; letter-spacing: 0.12em; color: var(--bush); padding-left: 0.5rem; }
+  .r-label { font-weight: 600; font-size: var(--step--1); text-transform: uppercase; letter-spacing: 0.12em; color: var(--green); padding-left: 0.5rem; }
   .r-year { font-family: var(--display); font-size: var(--step-4); font-weight: 600; line-height: 1; padding-left: 0.5rem; }
   .r-dl { display: inline-flex; align-items: center; gap: 0.4rem; font-weight: 600; padding-left: 0.5rem; }
   @media (max-width: 56rem) { .reports { grid-template-columns: 1fr 1fr; } }
@@ -193,7 +193,7 @@ const years = [...new Set(issues.map((n) => n.title.slice(-4)))];
   .issue:hover { background: var(--paper-2); }
   .month { font-weight: 600; }
   .topics { color: var(--ink-2); font-size: var(--step--1); line-height: 1.5; }
-  .dl { color: var(--kotare-deep); }
+  .dl { color: var(--blue-deep); }
   @media (max-width: 36rem) {
     .issue { grid-template-columns: 1fr auto; }
     .topics { grid-column: 1; }

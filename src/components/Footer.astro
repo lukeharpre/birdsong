@@ -22,7 +22,7 @@ const year = new Date().getFullYear();
 
     <div class="cols">
       <div class="brandcol">
-        <a href="/" class="brand" aria-label="Project Birdsong, home"><Logo size={64} /></a>
+        <a href="/" class="brand" aria-label="Project Birdsong, home"><Logo height={72} reverse /></a>
         <p>Project Birdsong is run by Mahurangi West Pest, a community of volunteers restoring native bird habitat across 3,500 hectares of the Mahurangi West peninsula.</p>
       </div>
       <nav aria-label="Footer">
@@ -70,8 +70,8 @@ const year = new Date().getFullYear();
   }
   .site-footer :global(.footer-song) {
     --ink: var(--paper);
-    --bush: var(--fern);
-    --kotare: var(--sky);
+    --green: var(--green-tint);
+    --blue: var(--blue-tint);
     margin-block: clamp(2.5rem, 6vw, 4rem);
   }
   .news {
@@ -86,7 +86,7 @@ const year = new Date().getFullYear();
     max-width: 14ch;
   }
   .news .eyebrow {
-    color: var(--kowhai);
+    color: var(--green-tint);
   }
   .news .lead {
     color: color-mix(in oklab, var(--paper) 75%, transparent);
@@ -110,7 +110,7 @@ const year = new Date().getFullYear();
     font-size: var(--step--1);
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--kowhai);
+    color: var(--green-tint);
     margin-bottom: 1rem;
   }
   ul {

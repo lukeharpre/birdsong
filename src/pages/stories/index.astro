@@ -40,7 +40,7 @@ const years = [...new Set(rest.map((p) => p.date.slice(0, 4)))];
 <style>
   .years { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 2rem; }
   .years a { text-decoration: none; transition: background-color 0.25s; }
-  .years a:hover { background: var(--kowhai); }
+  .years a:hover { background: var(--green-tint); }
   .lead-story {
     display: grid;
     grid-template-columns: 1.3fr 1fr;
@@ -64,7 +64,7 @@ const years = [...new Set(rest.map((p) => p.date.slice(0, 4)))];
     display: inline-block;
     padding: 0.2rem 1rem;
     border-radius: 999px;
-    background: var(--kowhai);
+    background: var(--green-tint);
   }
   .grid {
     display: grid;

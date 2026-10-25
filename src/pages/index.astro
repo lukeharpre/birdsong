@@ -27,7 +27,7 @@ const work = [
     body: "Volunteers count birds at 20 stations every season, listen for pekapeka and watch over the coast.",
     img: "2021-02-img_20201215_093739.jpg",
     alt: "Bird counters with binoculars on a picnic rug at the edge of the bush",
-    colour: "var(--sky)",
+    colour: "var(--blue-tint)",
     href: "/our-work#understand",
   },
   {
@@ -36,7 +36,7 @@ const work = [
     body: "We plant natives and clear the weeds that smother the bush, from Jamieson Bay to Huawai Bay.",
     img: "2025-08-group-pic_end-of-day.jpg",
     alt: "A group of volunteers at the end of a planting day",
-    colour: "var(--fern)",
+    colour: "var(--green-tint)",
     href: "/our-work#restore",
   },
   {
@@ -45,7 +45,7 @@ const work = [
     body: "With Auckland Council we look after what has been restored, so it keeps feeding and sheltering birds.",
     img: "2025-05-native_daphne_foreshore.jpg",
     alt: "Native plants growing on the foreshore",
-    colour: "var(--kowhai)",
+    colour: "var(--navy-tint)",
     href: "/our-work#protect",
   },
 ];
@@ -72,15 +72,15 @@ const latest = pinned;
       <div class="hero-copy">
         <p class="eyebrow hero-in" style="--d:0">Mahurangi West · Aotearoa</p>
         <h1 class="hero-title">
-          {["Bringing", "the", "birdsong", "back", "to", "Mahurangi."].map((w, i) => (
+          {["Bringing", "the", "birdsong", "back", "to", "the", "Mahurangi", "West", "Peninsula."].map((w, i) => (
             <><span class:list={["w", { accent: w === "birdsong" }]} style={`--d:${i + 1}`}>{w}</span>{" "}</>
           ))}
         </h1>
-        <p class="lead hero-in" style="--d:7">
+        <p class="lead hero-in" style="--d:10">
           Restoring native bird habitat across 3,500 hectares of Mahurangi West. Over 150 volunteers plant natives,
           clear the weeds that smother the bush and count the birds that come back.
         </p>
-        <div class="cta hero-in" style="--d:8">
+        <div class="cta hero-in" style="--d:11">
           <a href="/donate" class="btn">Donate <Icon name="arrow" /></a>
           <a href="/our-work" class="btn ghost">See our work</a>
         </div>
@@ -141,8 +141,8 @@ const latest = pinned;
           <dd><span data-count="150" data-suffix="+">150+</span></dd>
         </div>
         <div class="stat" style="--i:2">
-          <dt>properties involved</dt>
-          <dd><span data-count="200">200</span></dd>
+          <dt>volunteer hours in 2025–26</dt>
+          <dd><span data-count="6700" data-suffix="+">6,700+</span></dd>
         </div>
       </dl>
     </div>
@@ -283,7 +283,7 @@ const latest = pinned;
         </p>
       </div>
       <div class="bank reveal">
-        <p class="bank-label">Bank transfer to Mahurangi West Pest Inc</p>
+        <p class="bank-label">Bank transfer to Mahurangi West Pest Inc.</p>
         <p class="acct">06-0483-0894183-00</p>
         <p class="ref">Reference: <strong>BBB</strong></p>
         <div class="bank-actions">
@@ -306,7 +306,7 @@ const latest = pinned;
     isolation: isolate;
     overflow: clip;
     background:
-      radial-gradient(50rem 40rem at 100% 0%, color-mix(in oklab, var(--sky) 95%, transparent), transparent 65%),
+      radial-gradient(50rem 40rem at 100% 0%, color-mix(in oklab, var(--blue-tint) 95%, transparent), transparent 65%),
       radial-gradient(40rem 30rem at 0% 100%, color-mix(in oklab, var(--paper-2) 100%, transparent), transparent 70%);
   }
   .sun {
@@ -317,7 +317,7 @@ const latest = pinned;
     right: -6vw;
     top: -8vw;
     border-radius: 50%;
-    background: radial-gradient(circle at 40% 40%, #ffe08a, var(--kowhai) 60%);
+    background: radial-gradient(circle at 40% 40%, var(--paper), var(--blue-tint) 60%);
     filter: blur(2px);
     opacity: 0.85;
   }
@@ -444,10 +444,10 @@ const latest = pinned;
     display: grid;
     place-items: center;
     border-radius: 50%;
-    background: var(--pohutukawa);
+    background: var(--blue-deep);
     color: #fff;
     text-decoration: none;
-    box-shadow: 0 20px 40px -18px color-mix(in oklab, var(--pohutukawa) 80%, transparent);
+    box-shadow: 0 20px 40px -18px color-mix(in oklab, var(--blue-deep) 80%, transparent);
     transition: transform 0.5s var(--ease-spring);
   }
   .badge:hover { transform: scale(1.08) rotate(-6deg); }
@@ -547,7 +547,7 @@ const latest = pinned;
     font-weight: 600;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--kowhai);
+    color: var(--green-tint);
     white-space: nowrap;
   }
   @media (max-width: 40rem) {
@@ -572,7 +572,7 @@ const latest = pinned;
   }
   .track li::after {
     content: "✦";
-    color: var(--kowhai);
+    color: var(--green-tint);
     margin-left: 2.4rem;
     font-size: 1rem;
   }
@@ -598,7 +598,7 @@ const latest = pinned;
   /* --------------------------------------------------------- impact */
   .impact {
     background:
-      radial-gradient(40rem 30rem at 0% 0%, color-mix(in oklab, var(--kowhai) 35%, transparent), transparent 70%),
+      radial-gradient(40rem 30rem at 0% 0%, color-mix(in oklab, var(--green-tint) 35%, transparent), transparent 70%),
       var(--paper);
   }
   .stats {
@@ -617,9 +617,9 @@ const latest = pinned;
     background: var(--paper-2);
     min-height: 13rem;
   }
-  .stat:nth-child(1) { background: var(--kotare); color: #fff; }
-  .stat:nth-child(2) { background: var(--sky); }
-  .stat:nth-child(3) { background: color-mix(in oklab, var(--fern) 60%, var(--paper)); }
+  .stat:nth-child(1) { background: var(--navy); color: #fff; }
+  .stat:nth-child(2) { background: var(--blue-tint); }
+  .stat:nth-child(3) { background: color-mix(in oklab, var(--green-tint) 60%, var(--paper)); }
   dt {
     order: 2;
     font-weight: 600;
@@ -712,7 +712,7 @@ const latest = pinned;
 
   /* ---------------------------------------------------------- micro */
   .micro {
-    background: var(--kowhai);
+    background: var(--green-tint);
     border-radius: var(--radius-lg);
     margin-inline: clamp(0.5rem, 1.5vw, 1.25rem);
   }
@@ -749,7 +749,7 @@ const latest = pinned;
     width: 5.5rem;
     aspect-ratio: 1;
     border-radius: 50%;
-    background: conic-gradient(var(--kotare) var(--spin), var(--sky) 0);
+    background: conic-gradient(var(--blue) var(--spin), var(--blue-tint) 0);
   }
   .dial > span {
     display: grid;
@@ -825,7 +825,7 @@ const latest = pinned;
   blockquote footer {
     margin-top: 1rem;
     font-weight: 600;
-    color: var(--bush);
+    color: var(--green);
   }
   @media (max-width: 40rem) {
     .together-img { aspect-ratio: 4 / 5; min-height: 0; }
@@ -864,7 +864,7 @@ const latest = pinned;
   }
 
   /* ------------------------------------------------------------ iwi */
-  .iwi { background: color-mix(in oklab, var(--fern) 35%, var(--paper)); }
+  .iwi { background: color-mix(in oklab, var(--green-tint) 35%, var(--paper)); }
   .iwi-grid {
     display: grid;
     grid-template-columns: 1fr 1.1fr;
@@ -901,13 +901,13 @@ const latest = pinned;
     color: var(--ink-2);
     transition: color 0.3s;
   }
-  .thanks li:hover { color: var(--kotare); font-style: italic; }
+  .thanks li:hover { color: var(--blue); font-style: italic; }
 
   /* --------------------------------------------------------- donate */
   .donate-band {
     background:
-      radial-gradient(30rem 20rem at 100% 100%, color-mix(in oklab, var(--pohutukawa) 55%, transparent), transparent 70%),
-      var(--kowhai);
+      radial-gradient(30rem 20rem at 100% 100%, color-mix(in oklab, var(--blue) 35%, transparent), transparent 70%),
+      var(--blue-tint);
     padding-block: clamp(4rem, 9vw, 7rem) clamp(6rem, 12vw, 10rem);
     margin-bottom: calc(-1 * var(--radius-lg));
   }
@@ -927,7 +927,7 @@ const latest = pinned;
     gap: 0.75rem;
     box-shadow: 0 30px 60px -30px color-mix(in oklab, var(--ink) 40%, transparent);
   }
-  .bank-label { font-weight: 600; color: var(--bush); }
+  .bank-label { font-weight: 600; color: var(--green); }
   .ref { font-size: var(--step-1); }
   .ref strong { font-family: var(--display); letter-spacing: 0.08em; }
   .acct {

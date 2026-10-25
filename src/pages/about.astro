@@ -10,12 +10,11 @@ const team: [string, string, string | null][] = [
   ["Joanna Gullett", "Community Coordinator and Facilitator", "2026-07-joanna11-2.jpg"],
   ["Hugh Kininmonth", "Treasurer", "2026-07-img_20251027_15505411-2.jpg"],
   ["Beth Harper", "Fundraising", "2026-07-img_68901-1.jpg"],
-  ["Charlotte Berger", "Fundraiser", null],
   ["Maxine Finlay", "Pest Plant Buffer Project Coordinator", "2026-07-img_003411-1.jpg"],
   ["Robyn Mackenzie", "Planting Coordinator", "2026-07-img_34531-1.jpg"],
   ["Mel Whaanga", "Iwi Advisor", "2026-08-49441.jpg"],
 ];
-const tints = ["var(--kowhai)", "var(--sky)", "var(--fern)", "var(--buff)", "color-mix(in oklab, var(--pohutukawa) 35%, var(--paper))"];
+const tints = ["var(--green-tint)", "var(--blue-tint)", "var(--navy-tint)", "color-mix(in oklab, var(--green) 25%, var(--paper))", "color-mix(in oklab, var(--blue) 35%, var(--paper))"];
 
 const timeline = [
   ["2019", "Mahurangi West Pest forms, covering about 2,100 hectares of the peninsula."],
@@ -157,10 +156,10 @@ const timeline = [
     align-content: start;
     padding: 1.4rem;
     border-radius: var(--radius);
-    background: var(--sky);
+    background: var(--blue-tint);
   }
-  .pillars li:nth-child(2) { background: color-mix(in oklab, var(--fern) 45%, var(--paper)); }
-  .pillars li:nth-child(3) { background: var(--kowhai); }
+  .pillars li:nth-child(2) { background: color-mix(in oklab, var(--green-tint) 45%, var(--paper)); }
+  .pillars li:nth-child(3) { background: var(--navy-tint); }
   .pillars h3 { font-size: var(--step-1); }
   .pillars p { color: var(--ink-2); font-size: var(--step--1); }
   @media (max-width: 60rem) { .vision-grid { grid-template-columns: 1fr; } }
@@ -200,13 +199,13 @@ const timeline = [
     justify-self: start;
     padding: 0.25rem 0.8rem;
     border-radius: 999px;
-    background: var(--kowhai);
+    background: var(--green-tint);
     font-family: var(--display);
     font-weight: 600;
     font-size: var(--step-1);
     position: relative;
   }
-  .timeline li:last-child .year { background: var(--kotare); color: #fff; }
+  .timeline li:last-child .year { background: var(--blue); color: #fff; }
   .timeline p { color: var(--ink-2); font-size: var(--step--1); line-height: 1.55; }
   @media (max-width: 60rem) {
     .timeline { grid-template-columns: 1fr; gap: 1.5rem; padding-left: 1.5rem; }

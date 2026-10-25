@@ -4,12 +4,12 @@ import Img from "../components/Img.astro";
 import Icon from "../components/Icon.astro";
 
 const roles = [
-  { title: "Planting and weeding", body: "Help out on native planting days, weed cafés and weed control.", colour: "var(--fern)" },
-  { title: "Monitoring and citizen science", body: "Seasonal bird counts, Coast Guardians coastal monitoring and other projects.", colour: "var(--sky)" },
-  { title: "Community events", body: "Displays, working bees, fundraising and educational activities.", colour: "var(--buff)" },
+  { title: "Planting and weeding", body: "Help out on native planting days, weed cafés and weed control.", colour: "var(--green-tint)" },
+  { title: "Monitoring and citizen science", body: "Seasonal bird counts, Coast Guardians coastal monitoring and other projects.", colour: "var(--blue-tint)" },
+  { title: "Community events", body: "Displays, working bees, fundraising and educational activities.", colour: "var(--navy-tint)" },
   { title: "Admin and comms", body: "Behind-the-scenes organising and communications that keep projects and volunteers going.", colour: "var(--paper-2)" },
-  { title: "Business and sponsors", body: "Support the project as a sponsor or partner. Talk to us about what suits your business.", colour: "var(--kowhai)" },
-  { title: "Fundraise for us", body: "Run your own event or challenge and raise money for Project Birdsong.", colour: "color-mix(in oklab, var(--pohutukawa) 30%, var(--paper))" },
+  { title: "Business and sponsors", body: "Support the project as a sponsor or partner. Talk to us about what suits your business.", colour: "color-mix(in oklab, var(--green) 30%, var(--paper))" },
+  { title: "Fundraise for us", body: "Run your own event or challenge and raise money for Project Birdsong.", colour: "color-mix(in oklab, var(--blue) 30%, var(--paper))" },
 ];
 
 const audiences = [
@@ -221,7 +221,7 @@ const why = [
     border-radius: var(--radius-lg);
     margin-inline: clamp(0.5rem, 1.5vw, 1.25rem);
   }
-  .micro .eyebrow { color: var(--kowhai); }
+  .micro .eyebrow { color: var(--green-tint); }
   .micro .lead { color: color-mix(in oklab, var(--paper) 78%, transparent); }
   .micro-grid {
     display: grid;
@@ -246,7 +246,7 @@ const why = [
     width: 5rem;
     aspect-ratio: 1;
     border-radius: 50%;
-    background: var(--kowhai);
+    background: var(--green-tint);
     font-family: var(--display);
     font-weight: 600;
     text-align: center;
@@ -273,7 +273,7 @@ const why = [
     padding-bottom: 0.7rem;
     border-bottom: 1px solid var(--line);
   }
-  .why li::before { content: "✦"; color: var(--kotare); font-size: 0.9em; }
+  .why li::before { content: "✦"; color: var(--blue); font-size: 0.9em; }
   @media (max-width: 56rem) { .why-grid { grid-template-columns: 1fr; } .why-img { aspect-ratio: 16 / 11; } }
 
   .join { padding-bottom: clamp(4rem, 9vw, 7rem); }
@@ -284,8 +284,8 @@ const why = [
     padding: clamp(2rem, 6vw, 5rem);
     border-radius: var(--radius-lg);
     background:
-      radial-gradient(30rem 20rem at 100% 100%, color-mix(in oklab, var(--kowhai) 60%, transparent), transparent 70%),
-      var(--sky);
+      radial-gradient(30rem 20rem at 100% 100%, color-mix(in oklab, var(--green-tint) 60%, transparent), transparent 70%),
+      var(--blue-tint);
   }
   .join h2 { font-size: var(--step-4); max-width: 20ch; }
   .join-cta { display: flex; flex-wrap: wrap; gap: 0.75rem; }

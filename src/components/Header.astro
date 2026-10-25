@@ -21,8 +21,7 @@ const current = (href: string) =>
 <header class="site-header">
   <div class="bar wrap">
     <a href="/" class="brand" aria-label="Project Birdsong, home">
-      <Logo size={46} />
-      <span class="name">Project<br /><em>Birdsong</em></span>
+      <Logo height={46} />
     </a>
 
     <nav aria-label="Main" class="desktop">
@@ -52,7 +51,7 @@ const current = (href: string) =>
 
   <div id="menu" popover>
     <div class="menu-top">
-      <a href="/" class="brand" aria-label="Project Birdsong, home"><Logo size={42} /></a>
+      <a href="/" class="brand" aria-label="Project Birdsong, home"><Logo height={42} /></a>
       <button popovertarget="menu" popovertargetaction="hide" class="menu-btn" aria-label="Close menu">
         <Icon name="close" size={24} />
       </button>
@@ -122,24 +121,6 @@ const current = (href: string) =>
     gap: 0.7rem;
     text-decoration: none;
     flex-shrink: 0;
-  }
-  .brand :global(svg) {
-    transition: transform 0.6s var(--ease-spring);
-  }
-  .brand:hover :global(svg) {
-    transform: rotate(-12deg) scale(1.06);
-  }
-  .name {
-    font-family: var(--display);
-    font-weight: 650;
-    font-size: 1.08rem;
-    line-height: 1;
-    letter-spacing: -0.01em;
-  }
-  .name em {
-    font-style: italic;
-    font-weight: 500;
-    color: var(--kotare);
   }
 
   .desktop > ul {
@@ -259,8 +240,8 @@ const current = (href: string) =>
     padding: 1rem var(--gutter) 2rem;
     border: 0;
     background:
-      radial-gradient(40rem 30rem at 100% 0%, var(--kowhai), transparent 60%),
-      var(--sky);
+      radial-gradient(40rem 30rem at 100% 0%, var(--green-tint), transparent 60%),
+      var(--blue-tint);
     color: var(--ink);
     flex-direction: column;
     opacity: 0;
@@ -319,7 +300,7 @@ const current = (href: string) =>
   }
   #menu li a[aria-current="page"] {
     font-style: italic;
-    color: var(--kotare-deep);
+    color: var(--blue-deep);
   }
   .menu-sub {
     display: flex;
@@ -331,7 +312,7 @@ const current = (href: string) =>
     font-family: var(--body);
     font-size: var(--step-0);
     font-weight: 600;
-    color: var(--kotare-deep);
+    color: var(--blue-deep);
   }
   .menu-cta {
     display: grid;

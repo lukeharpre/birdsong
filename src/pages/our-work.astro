@@ -234,7 +234,7 @@ const restore = [
     text-decoration: none;
     transition: background-color 0.25s, transform 0.3s var(--ease-spring);
   }
-  .jump a:hover { background: var(--kowhai); transform: translateY(-2px); }
+  .jump a:hover { background: var(--green-tint); transform: translateY(-2px); }
 
   .why-list {
     list-style: none;
@@ -252,8 +252,8 @@ const restore = [
     border-radius: var(--radius-lg);
     background: var(--paper-2);
   }
-  .why-list li:nth-child(2) { background: var(--sky); }
-  .why-list li:nth-child(3) { background: color-mix(in oklab, var(--fern) 45%, var(--paper)); }
+  .why-list li:nth-child(2) { background: var(--blue-tint); }
+  .why-list li:nth-child(3) { background: color-mix(in oklab, var(--green-tint) 45%, var(--paper)); }
   .no {
     display: grid;
     place-items: center;
@@ -280,7 +280,7 @@ const restore = [
     border-radius: var(--radius-lg);
     background: var(--paper);
   }
-  .flagship { display: grid; gap: 0.6rem; align-content: start; background: var(--kowhai); }
+  .flagship { display: grid; gap: 0.6rem; align-content: start; background: var(--green-tint); }
   .flagship .eyebrow { color: var(--ink); }
   .flagship h3 { font-size: var(--step-3); }
   .latin { font-style: italic; color: var(--ink-2); }
@@ -326,7 +326,7 @@ const restore = [
     color: var(--paper);
   }
   .protect-head { display: grid; gap: 1.2rem; max-width: 46rem; }
-  .protect .eyebrow { color: var(--kowhai); }
+  .protect .eyebrow { color: var(--green-tint); }
   .protect .lead { color: color-mix(in oklab, var(--paper) 80%, transparent); }
   .protect-list {
     list-style: none;
@@ -346,13 +346,13 @@ const restore = [
   }
   .protect-list h3 { font-size: var(--step-1); }
   .protect-list p { color: color-mix(in oklab, var(--paper) 78%, transparent); }
-  .protect-list .proof { background: var(--kowhai); color: var(--ink); align-content: end; }
+  .protect-list .proof { background: var(--green-tint); color: var(--ink); align-content: end; }
   .proof strong { font-family: var(--display); font-size: var(--step-4); line-height: 1; }
   .protect-list .proof p { color: var(--ink); font-weight: 600; }
   @media (max-width: 60rem) { .protect-list { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 36rem) { .protect-list { grid-template-columns: 1fr; } }
 
-  .birds { background: color-mix(in oklab, var(--fern) 35%, var(--paper)); }
+  .birds { background: color-mix(in oklab, var(--green-tint) 35%, var(--paper)); }
   .birds-grid {
     display: grid;
     grid-template-columns: 1.1fr 1fr;
@@ -383,15 +383,15 @@ const restore = [
     padding: clamp(2rem, 6vw, 5rem);
     color: var(--paper);
     background:
-      radial-gradient(30rem 20rem at 100% 0%, color-mix(in oklab, var(--sky) 40%, transparent), transparent 70%),
-      linear-gradient(160deg, var(--kotare), var(--kotare-deep));
+      radial-gradient(30rem 20rem at 100% 0%, color-mix(in oklab, var(--blue-tint) 40%, transparent), transparent 70%),
+      linear-gradient(160deg, var(--blue), var(--blue-deep));
   }
-  .coast .eyebrow { color: var(--kowhai); }
+  .coast .eyebrow { color: var(--green-tint); }
   .coast .lead { color: color-mix(in oklab, var(--paper) 88%, transparent); }
   .coast-copy { max-width: 42rem; }
   .ticks { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.6rem; }
   .ticks li { display: flex; gap: 0.7rem; }
-  .ticks li::before { content: "✓"; color: var(--kowhai); font-weight: 700; }
+  .ticks li::before { content: "✓"; color: var(--green-tint); font-weight: 700; }
 
   .buffer-grid {
     display: grid;
