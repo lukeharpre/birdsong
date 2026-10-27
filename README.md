@@ -2,7 +2,7 @@
 
 Proof-of-concept redesign of the Mahurangi West Pest website
 (mahurangiwestpest.wordpress.com) as a static site for Project Birdsong,
-served by GitHub Pages at [presh.nz](https://presh.nz).
+served by GitHub Pages at [projectbirdsong.org](https://projectbirdsong.org).
 
 ## Deploying
 
